@@ -339,13 +339,13 @@ extern TTC *gp_tte_context;
 // --- Main Font data ---
 extern const TFont sys8Font;		//!< System font ' '-127. FWF  8x 8\@1.
 
-extern const TFont verdana9Font;	//!< Verdana 9 ' '-'�'. VWF  8x12\@1.
-extern const TFont verdana9bFont;	//!< Verdana 9 bold ' '-'�'. VWF  8x12\@1.
-extern const TFont verdana9iFont;	//!< Verdana 9 italic ' '-'�'. VWF  8x12\@1.
+extern const TFont verdana9Font;	//!< Verdana 9 ' '-'ÿ'. VWF  8x12\@1.
+extern const TFont verdana9bFont;	//!< Verdana 9 bold ' '-'ÿ'. VWF  8x12\@1.
+extern const TFont verdana9iFont;	//!< Verdana 9 italic ' '-'ÿ'. VWF  8x12\@1.
 
-extern const TFont verdana10Font;	//!< Verdana 10 ' '-'�'. VWF 16x14\@1.
-		
-extern const TFont verdana9_b4Font;	//!< Verdana 9 ' '-'�'. VWF  8x12\@4.
+extern const TFont verdana10Font;	//!< Verdana 10 ' '-'ÿ'. VWF 16x14\@1.
+
+extern const TFont verdana9_b4Font;	//!< Verdana 9 ' '-'ÿ'. VWF  8x12\@4.
 
 
 // --- Extra font data ---
