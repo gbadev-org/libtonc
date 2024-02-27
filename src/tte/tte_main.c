@@ -556,7 +556,7 @@ int tte_putc(int ch)
 	
 	if(tc->cursorX+charW > tc->marginRight)
 	{
-		tc->cursorY += font->charH;
+		tc->cursorY += font->charH + tc->lineSpacing;
 		tc->cursorX  = tc->marginLeft;
 	}
 
@@ -594,7 +594,7 @@ int	tte_write(const char *text)
 				str++;
 			// FALLTHRU
 		case '\n':
-			tc->cursorY += tc->font->charH;
+			tc->cursorY += tc->font->charH + tc->lineSpacing;
 			tc->cursorX  = tc->marginLeft;
 			break;
 		// --- Tab ---
@@ -627,7 +627,7 @@ int	tte_write(const char *text)
 			int charW= font->widths ? font->widths[gid] : font->charW;
 			if(tc->cursorX+charW > tc->marginRight)
 			{
-				tc->cursorY += font->charH;
+				tc->cursorY += font->charH + tc->lineSpacing;
 				tc->cursorX  = tc->marginLeft;
 			}
 
@@ -705,7 +705,7 @@ POINT16 tte_get_text_size(const char *str)
 				str++;
 			// FALLTHRU
 		case '\n':
-			height += charH;
+			height += charH + tc->lineSpacing;
 			if(x > width)
 				width= x;
 			x= 0;
@@ -735,7 +735,7 @@ POINT16 tte_get_text_size(const char *str)
 			charW= tte_get_glyph_width(tte_get_glyph_id(ch));
 			if(x+charW > tc->marginRight)
 			{
-				height += charH;		
+				height += charH + tc->lineSpacing;
 				if(x>width)
 					width= x;
 				x=0;			
