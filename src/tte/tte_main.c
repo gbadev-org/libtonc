@@ -730,7 +730,7 @@ POINT16 tte_get_text_size(const char *str)
 
 			// Check for UTF8 code
 			if(ch>=0x80)
-				ch= utf8_decode_char(str-1, &str);
+				ch= utf8_decode_char(str-1, (char**)&str);
 
 			charW= tte_get_glyph_width(tte_get_glyph_id(ch));
 			if(x+charW > tc->marginRight)
