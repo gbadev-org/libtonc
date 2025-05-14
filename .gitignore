@@ -1,3 +1,5 @@
-build
-lib
+build/
+lib/
+doc/
 *.bz2
+warn.log
