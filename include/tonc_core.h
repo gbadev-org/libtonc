@@ -294,7 +294,7 @@ extern const uint __snd_rates[12];
 // --------------------------------------------------------------------
 
 
-/*! \defgroup grpCoreMisc	Miscellaneous routines	
+/*! \defgroup grpCoreMisc	Miscellaneous routines
 *	\ingroup grpCore
 */
 /*!	\{	*/

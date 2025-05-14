@@ -30,8 +30,10 @@
 #include "tonc_types.h"
 #endif
 
-/*!	\defgroup grpReg	IO Registers	*/
-/*!	\defgroup grpRegAlt	IO Alternates	*/
+/*!
+	\defgroup grpReg	IO Registers
+	\defgroup grpRegAlt	IO Alternates
+*/
 
 
 // === MEMORY SECTIONS ================================================

@@ -18,7 +18,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-/*!	\defgroup grpTypes	Types and attributes	*/
+/*!
+	\defgroup grpTypes	Types and attributes
+*/
 
 
 // --------------------------------------------------------------------

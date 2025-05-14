@@ -40,18 +40,20 @@ extern "C" {
 
 // --- Doxygen modules: ---
 
-/*!	\defgroup grpBios	Bios Calls			*/
-/*!	\defgroup grpCore	Core				*/
-/*! \defgroup grpDma	DMA					*/
-/*! \defgroup grpInput	Input				*/
-/*! \defgroup grpIrq	Interrupt			*/
-/*! \defgroup grpMath	Math				*/
-/*!	\defgroup grpMemmap Memory Map			*/
-/*! \defgroup grpAudio	Sound				*/
-/*! \defgroup grpTTE	Tonc Text Engine	*/
-/*! \defgroup grpText	Old Text			*/
-/*! \defgroup grpTimer	Timer				*/
-/*! \defgroup grpVideo	Video				*/
+/*!
+	\defgroup grpBios	Bios Calls
+	\defgroup grpCore	Core
+	\defgroup grpDma	DMA
+	\defgroup grpInput	Input
+	\defgroup grpIrq	Interrupt
+	\defgroup grpMath	Math
+	\defgroup grpMemmap Memory Map
+	\defgroup grpAudio	Sound
+	\defgroup grpTTE	Tonc Text Engine
+	\defgroup grpText	Old Text
+	\defgroup grpTimer	Timer
+	\defgroup grpVideo	Video
+ */
 
 
 
