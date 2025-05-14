@@ -39,9 +39,9 @@
 	\brief	Interfaces and constants for the GBA BIOS routines. 
 	
 	For details, see 
-	<a href="http://www.coranac.com/tonc/text/keys.htm">tonc:keys</a> 
+	<a href="https://gbadev.net/tonc/swi.html">tonc:bios</a>
 	and especially 
-	<a href="http://nocash.emubase.de/gbatek.htm#biosfunctions">gbatek:bios</a>.
+	<a href="https://problemkaputt.de/gbatek.htm#biosfunctions">gbatek:bios</a>.
 
 	\note	While the speeds of the routines are fair, there 
 	is a large overhead in calling the functions.

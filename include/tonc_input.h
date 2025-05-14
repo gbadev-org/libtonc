@@ -22,7 +22,7 @@
 	\brief	Routines for synchronous and asynchronous button states.
 
 	For details, see 
-	<a href="http://www.coranac.com/tonc/text/keys.htm">tonc:keys</a>.
+	<a href="https://gbadev.net/tonc/keys.html">tonc:keys</a>.
 */
 
 /*! \{	*/

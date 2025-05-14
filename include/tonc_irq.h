@@ -25,7 +25,7 @@
 
 
 	For details, see 
-	<a href="http://www.coranac.com/tonc/text/interrupts.htm">tonc:irq</a> 
+	<a href="https://gbadev.net/tonc/interrupts.html">tonc:irq</a>
 	*/
 /*! \{	*/
 

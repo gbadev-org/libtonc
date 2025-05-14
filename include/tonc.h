@@ -58,7 +58,7 @@ extern "C" {
 /*!	\mainpage	Tonclib 1.4 (20080825)
 	<p>
 	Tonclib is the library accompanying the set of GBA tutorials known 
-	as <a href="http://www.coranac.com/tonc/">Tonc</a>  Initially, it 
+	as <a href=""https://gbadev.net/tonc/>Tonc</a>  Initially, it
 	was just a handful of macros and functions for dealing with the 
 	GBA hardware: the memory map and its bits, affine transformation 
 	code and things like that. More recently, more general items 
