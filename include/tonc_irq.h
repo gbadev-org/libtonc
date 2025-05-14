@@ -24,7 +24,7 @@
 	\brief	Hardware interrupt management.
 
 
-	For details, see 
+	For details, see
 	<a href="https://gbadev.net/tonc/interrupts.html">tonc:irq</a>
 	*/
 /*! \{	*/
@@ -45,7 +45,7 @@ typedef enum eIrqIndex
 #define ISR_LAST		0x0040	//!< Last isr in line (Lowest priority)
 #define ISR_REPLACE		0x0080	//!< Replace old isr if existing (prio ignored)
 
-#define ISR_PRIO_MASK	0x003F	//!< 
+#define ISR_PRIO_MASK	0x003F	//!<
 #define ISR_PRIO_SHIFT		 0
 #define ISR_PRIO(n)		((n)<<ISR_PRIO_SHIFT)
 
@@ -55,7 +55,7 @@ typedef enum eIrqIndex
 
 
 // --------------------------------------------------------------------
-// MACROS 
+// MACROS
 // --------------------------------------------------------------------
 
 
@@ -70,12 +70,12 @@ typedef enum eIrqIndex
 
 
 // --------------------------------------------------------------------
-// CLASSES 
+// CLASSES
 // --------------------------------------------------------------------
 
 
 //! Struct for prioritized irq table
-typedef struct IRQ_REC	
+typedef struct IRQ_REC
 {
 	u32 flag;	//!< Flag for interrupt in REG_IF, etc
 	fnptr isr;	//!< Pointer to interrupt routine
@@ -83,7 +83,7 @@ typedef struct IRQ_REC
 
 
 // --------------------------------------------------------------------
-// GLOBALS 
+// GLOBALS
 // --------------------------------------------------------------------
 
 
@@ -91,7 +91,7 @@ extern IRQ_REC __isr_table[II_MAX+1];
 
 
 // --------------------------------------------------------------------
-// PROTOTYPES 
+// PROTOTYPES
 // --------------------------------------------------------------------
 
 
@@ -111,7 +111,7 @@ void irq_disable(enum eIrqIndex irq_id);
 
 
 // --------------------------------------------------------------------
-// INLINES 
+// INLINES
 // --------------------------------------------------------------------
 
 

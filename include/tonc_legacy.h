@@ -6,9 +6,9 @@
 //! \date 20070131 - 20070131
 //
 // === NOTES ===
-// * Many names have changed in tonclib 1.3, which would break 
-//   old code so hard. To make things a little easier, here is 
-//   a list of redefines for compatibility. 
+// * Many names have changed in tonclib 1.3, which would break
+//   old code so hard. To make things a little easier, here is
+//   a list of redefines for compatibility.
 //   Note that the system is not perfect, but it will have to do.
 
 #ifndef TONC_LEGACY
@@ -99,7 +99,7 @@ void bm16_frame(u16 *dst, int width, int height, u16 clr, int pitch);
 // --------------------------------------------------------------------
 
 
-// Specials for OAM buffer.  
+// Specials for OAM buffer.
 
 //! Declaration macro for shadow OAM
 #define OAM_BUFFER_DECLARE(attr)				\

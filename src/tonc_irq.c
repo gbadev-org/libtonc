@@ -6,8 +6,8 @@
 //! \date 20060908 - 20060928
 //
 // === NOTES ===
-// * General note: every irq function should start with 
-//   saving/clearing REG_IME and end with restoring it. If it doesn't 
+// * General note: every irq function should start with
+//   saving/clearing REG_IME and end with restoring it. If it doesn't
 //   it's a fair bet that I screwed up :(
 
 #include "tonc_memmap.h"
@@ -17,7 +17,7 @@
 
 
 // --------------------------------------------------------------------
-// CLASSES 
+// CLASSES
 // --------------------------------------------------------------------
 
 
@@ -30,7 +30,7 @@ typedef struct IRQ_SENDER
 
 
 // --------------------------------------------------------------------
-// GLOBALS 
+// GLOBALS
 // --------------------------------------------------------------------
 
 
@@ -39,9 +39,9 @@ IRQ_REC __isr_table[II_MAX+1];
 
 // yeah, yeah, I really should use the registers and defines
 // I have else where.
-// NOTE: haven't really tested this very much; if inaccurate, 
+// NOTE: haven't really tested this very much; if inaccurate,
 // plz tell me
-static const IRQ_SENDER __irq_senders[] = 
+static const IRQ_SENDER __irq_senders[] =
 {
 	{ 0x0004, 0x0008 },		// REG_DISPSTAT,	DSTAT_VBL_IRQ
 	{ 0x0004, 0x0010 },		// REG_DISPSTAT,	DSTAT_VHB_IRQ
@@ -61,7 +61,7 @@ static const IRQ_SENDER __irq_senders[] =
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 
@@ -71,7 +71,7 @@ static const IRQ_SENDER __irq_senders[] =
 */
 void irq_init(fnptr isr)
 {
-	REG_IME= 0;	
+	REG_IME= 0;
 
 	// clear interrupt table (just in case)
 	memset32(__isr_table, 0, (II_MAX+1)*sizeof(IRQ_REC)/4);
@@ -128,7 +128,7 @@ fnptr irq_set(enum eIrqIndex irq_id, fnptr isr, u32 opts)
 	for(slot=0; pir[slot].flag; slot++)
 		if(pir[slot].flag == irq_flag)
 			break;
-	
+
 	prio= opts&(ISR_LAST|ISR_PRIO_MASK);
 
 	// ISR already exists; replace?
@@ -168,7 +168,7 @@ fnptr irq_set(enum eIrqIndex irq_id, fnptr isr, u32 opts)
 	pir[slot].flag= irq_flag;
 
 	REG_IME= ime;
-	return old_isr;	
+	return old_isr;
 }
 
 
@@ -200,7 +200,7 @@ fnptr irq_add(enum eIrqIndex irq_id, fnptr isr)
 	for(ii=0; pir[ii].flag; ii++)
 		if(pir[ii].flag == irq_flag)
 			break;
-	
+
 	old_isr= pir[ii].isr;
 	pir[ii].isr= isr;
 	pir[ii].flag= irq_flag;
@@ -241,7 +241,7 @@ fnptr irq_delete(enum eIrqIndex irq_id)
 		pir[ii]= pir[ii+1];
 
 	REG_IME= ime;
-	return old_isr;	
+	return old_isr;
 }
 
 void irq_enable(enum eIrqIndex irq_id)

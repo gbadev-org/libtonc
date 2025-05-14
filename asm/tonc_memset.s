@@ -7,12 +7,12 @@
 //
 // === NOTES ===
 @ * 20050924: Lower overhead for all; reduced i-count for u16 loops.
-@ * These are 16/32bit memset and memcpy. The 32bit versions are in 
-@   iwram for maximum effect and pretty much do what CpuFastSet does, 
-@   except that it'll work for non multiples of 8 words too. Speed 
+@ * These are 16/32bit memset and memcpy. The 32bit versions are in
+@   iwram for maximum effect and pretty much do what CpuFastSet does,
+@   except that it'll work for non multiples of 8 words too. Speed
 @   is as good as CpuFastSet, but with a little less overhead.
-@ * The 16bit versions call the 32bit ones if possible and/or desirable. 
-@   They are thumb/ROM functions but did them in asm anyway because 
+@ * The 16bit versions call the 32bit ones if possible and/or desirable.
+@   They are thumb/ROM functions but did them in asm anyway because
 @   GCC goes haywire with the use of registers resulting in a much
 @   higher overhead (i.e., detrimental for low counts)
 @ * Crossover with inline while(nn--) loops (not for(ii++), which are
@@ -99,7 +99,7 @@ BEGIN_FUNC_THUMB(memset16, CSEC_TEXT)
 	lsr		r2, r2, #1
 	ldr		r3, =memset32
 	bl		.Llong_bl
-	@ NOTE: r0 is altered by memset32, but in exactly the right 
+	@ NOTE: r0 is altered by memset32, but in exactly the right
 	@ way, so we can use is as is. r1 is now doubled though.
 	lsr		r2, r4, #31
 	beq		.Lend_set16
@@ -118,6 +118,6 @@ BEGIN_FUNC_THUMB(memset16, CSEC_TEXT)
 .Llong_bl:
 	bx	r3
 END_FUNC(memset16)
-	
+
 
 @ EOF

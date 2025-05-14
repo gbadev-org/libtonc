@@ -18,35 +18,35 @@ typedef u8 pixel_t;
 	(pixel_t*)(psrf->data + (y)*psrf->pitch + (x)*sizeof(pixel_t) )
 
 
-void sbmp8_floodfill_internal(const TSurface *dst, int x, int y, 
+void sbmp8_floodfill_internal(const TSurface *dst, int x, int y,
 	u8 clrNew, u8 clrOld);
 
 // --------------------------------------------------------------------
 // GLOBALS
 // --------------------------------------------------------------------
 
-EWRAM_DATA TSurface m4_surface= 
+EWRAM_DATA TSurface m4_surface=
 {
-	(u8*)m4_mem, M4_WIDTH, M4_WIDTH, M4_HEIGHT, SRF_BMP8, 8, 
+	(u8*)m4_mem, M4_WIDTH, M4_WIDTH, M4_HEIGHT, SRF_BMP8, 8,
 	256, pal_bg_mem
 };
 
-const TSurfaceProcTab bmp8_tab= 
+const TSurfaceProcTab bmp8_tab=
 {
 	"bmp8",
 	sbmp8_get_pixel,
-	sbmp8_plot, 
-	sbmp8_hline, 
-	sbmp8_vline, 
-	sbmp8_line, 
-	sbmp8_rect, 
-	sbmp8_frame, 
-	sbmp8_blit, 
-	sbmp8_floodfill, 
+	sbmp8_plot,
+	sbmp8_hline,
+	sbmp8_vline,
+	sbmp8_line,
+	sbmp8_rect,
+	sbmp8_frame,
+	sbmp8_blit,
+	sbmp8_floodfill,
 };
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 //! Get the pixel value of \a src at (\a x, \a y).
@@ -69,7 +69,7 @@ void sbmp8_plot(const TSurface *dst, int x, int y, u32 clr)
 	u16 *dstD= (u16*)PXPTR(dst, x&~1, y);
 
 	if(x&1)
-	   *dstD= (*dstD& 255) | (clr<<8); 
+	   *dstD= (*dstD& 255) | (clr<<8);
 	else
 	   *dstD= (*dstD&~255) | (clr&0xFF);
 }
@@ -107,7 +107,7 @@ void sbmp8_vline(const TSurface *dst, int x, int y1, int y2, u32 clr)
 	// --- Normalize ---
 	if(y2<y1)
 	{	int tmp= y1; y1= y2; y2= tmp;	}
-		
+
 	u16 *dstL= (u16*)PXPTR(dst, x&~1, y1);
 	uint dstP= dst->pitch/2;
 	uint height= y2-y1+1;
@@ -149,7 +149,7 @@ void sbmp8_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 			x2++;
 		else
 			x1++;
-		
+
 		sbmp8_hline(dst, x1, y1, x2, clr);
 		return;
 	}
@@ -162,7 +162,7 @@ void sbmp8_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 			y2++;
 		else
 			y1++;
-		
+
 		sbmp8_vline(dst, x1, y1, y2, clr);
 		return;
 	}
@@ -192,7 +192,7 @@ void sbmp8_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 
 
 	// --- Drawing ---
-	// NOTE: because xstep is alternating, you can do marvels 
+	// NOTE: because xstep is alternating, you can do marvels
 	//	with mask-flips
 	// NOTE: (mask>>31) is equivalent to (x&1) ? 0 : 1
 
@@ -211,7 +211,7 @@ void sbmp8_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 			dd += 2*dy;
 			addr += xstep;
 			mask = ~mask;
-		}				
+		}
 	}
 	else				// # Diagonal, slope > 1
 	{
@@ -225,7 +225,7 @@ void sbmp8_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 			if(dd >= 0)
 			{
 				dd -= 2*dy;
-				addr += xstep;	
+				addr += xstep;
 				mask = ~mask;
 			}
 
@@ -245,7 +245,7 @@ void sbmp8_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 	\param clr		Color.
 	\note	Does normalization, but not bounds checks.
 */
-void sbmp8_rect(const TSurface *dst, 
+void sbmp8_rect(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr)
 {
 	if(left==right || top==bottom)
@@ -274,7 +274,7 @@ void sbmp8_rect(const TSurface *dst,
 	\note	Does normalization, but not bounds checks.
 	\note	PONDER: RB in- or exclusive?
 */
-void sbmp8_frame(const TSurface *dst, 
+void sbmp8_frame(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr)
 {
 	if(left==right || top==bottom)
@@ -311,7 +311,7 @@ void sbmp8_frame(const TSurface *dst,
 	\param srcY		Top coord of rectangle on \a src.
 	\note			The rectangle will be clipped to both \a src and \a dst.
 */
-void sbmp8_blit(const TSurface *dst, int dstX, int dstY, 
+void sbmp8_blit(const TSurface *dst, int dstX, int dstY,
 	uint width, uint height, const TSurface *src, int srcX, int srcY)
 {
 	// Safety checks
@@ -349,7 +349,7 @@ void sbmp8_blit(const TSurface *dst, int dstX, int dstY,
 	{
 		tonccpy(dstL, srcL, w);
 		srcL += srcP;
-		dstL += dstP;		
+		dstL += dstP;
 	}
 
 #undef BLIT_CLIP
@@ -375,12 +375,12 @@ void sbmp8_floodfill(const TSurface *dst, int x, int y, u32 clr)
 }
 
 //! Internal routine for floodfill
-void sbmp8_floodfill_internal(const TSurface *dst, int x, int y, 
+void sbmp8_floodfill_internal(const TSurface *dst, int x, int y,
 	pixel_t clrNew, pixel_t clrOld)
 {
 	pixel_t *dstL= PXPTR(dst, 0, y);
 	uint dstPitch= dst->pitch/PXSIZE, dstH= dst->height;
-	
+
 	// Find horz edges, then fill
 	int ii, left=x, right=x;
 
@@ -393,13 +393,13 @@ void sbmp8_floodfill_internal(const TSurface *dst, int x, int y,
 	// Recursive *ick*. All the stack-work's making GBA's head spin.
 	for(ii=left; ii<=right; ii++)
 	{
-		// clr-first check saves 
+		// clr-first check saves
 		if(dstL[ii-dstPitch] == clrOld && y>0)
 			sbmp8_floodfill_internal(dst, ii, y-1, clrNew, clrOld);
-		
+
 		if(dstL[ii+dstPitch] == clrOld && y+1<dstH)
-			sbmp8_floodfill_internal(dst, ii, y+1, clrNew, clrOld);		
-	}	
+			sbmp8_floodfill_internal(dst, ii, y+1, clrNew, clrOld);
+	}
 }
 
 // EOF

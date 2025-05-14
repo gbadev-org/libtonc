@@ -11,7 +11,7 @@
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 
@@ -119,9 +119,9 @@ void bm16_puts(u16 *dst, const char *str, COLOR clr, int pitch)
 	while((c=*str++) != 0)
 	{
 		if(c == '\n')		// line break
-		{	
-			dst += pitch*gptxt->dy;	
-			x=0;	
+		{
+			dst += pitch*gptxt->dy;
+			x=0;
 		}
 		else				// normal character
 		{
@@ -154,9 +154,9 @@ void bm8_puts(u16 *dst, const char *str, u8 clrid)
 	while((c=*str++) != 0)
 	{
 		if(c == '\n')		// line break
-		{	
-			dst += 120*gptxt->dy;	
-			x=0;	
+		{
+			dst += 120*gptxt->dy;
+			x=0;
 		}
 		else				// normal character
 		{

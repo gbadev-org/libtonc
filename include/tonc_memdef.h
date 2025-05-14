@@ -375,7 +375,7 @@
 
 /*!	\defgroup grpAudioSFREQ	Tone Generator, Frequency Flags
 	\ingroup grpMemBits
-	\brief	Bits for REG_SND{1-3}FREQ 
+	\brief	Bits for REG_SND{1-3}FREQ
 	(aka REG_SOUND1CNT_X, REG_SOUND2CNT_H, REG_SOUND3CNT_X)
 */
 /*!	\{	*/
@@ -402,10 +402,10 @@
 /*!	\{	*/
 
 
-#define SDMG_LSQR1		0x0100	//!< Enable channel 1 on left 
+#define SDMG_LSQR1		0x0100	//!< Enable channel 1 on left
 #define SDMG_LSQR2		0x0200	//!< Enable channel 2 on left
 #define SDMG_LWAVE		0x0400	//!< Enable channel 3 on left
-#define SDMG_LNOISE		0x0800	//!< Enable channel 4 on left	
+#define SDMG_LNOISE		0x0800	//!< Enable channel 4 on left
 #define SDMG_RSQR1		0x1000	//!< Enable channel 1 on right
 #define SDMG_RSQR2		0x2000	//!< Enable channel 2 on right
 #define SDMG_RWAVE		0x4000	//!< Enable channel 3 on right
@@ -489,12 +489,12 @@
 
 #define DMA_DST_INC				 0	//!< Incrementing destination address
 #define DMA_DST_DEC		0x00200000	//!< Decrementing destination
-#define DMA_DST_FIXED	0x00400000	//!< Fixed destination 
+#define DMA_DST_FIXED	0x00400000	//!< Fixed destination
 #define DMA_DST_RELOAD	0x00600000	//!< Increment destination, reset after full run
 #define DMA_SRC_INC				 0	//!< Incrementing source address
 #define DMA_SRC_DEC		0x00800000	//!< Decrementing source address
 #define DMA_SRC_FIXED	0x01000000	//!< Fixed source address
-#define DMA_REPEAT		0x02000000	//!< Repeat transfer at next start condition 
+#define DMA_REPEAT		0x02000000	//!< Repeat transfer at next start condition
 #define DMA_16					 0	//!< Transfer by halfword
 #define DMA_32			0x04000000	//!< Transfer by word
 #define DMA_AT_NOW				 0	//!< Start transfer now
@@ -512,7 +512,7 @@
 #define DMA_COUNT(n)	((n)<<DMA_COUNT_SHIFT)
 
 
-// \name Extra 
+// \name Extra
 //\{
 
 #define DMA_NOW		(DMA_ENABLE  | DMA_AT_NOW)

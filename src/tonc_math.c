@@ -13,7 +13,7 @@
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 
@@ -46,9 +46,9 @@ VECTOR *vec_cross(VECTOR *vd, const VECTOR *va, const VECTOR *vb)
 RECT *rc_normalize(RECT *rc)
 {
 	int tmp;
-	if(rc->left > rc->right) 
+	if(rc->left > rc->right)
 		SWAP3(rc->left, rc->right, tmp);
-	if(rc->top > rc->bottom) 
+	if(rc->top > rc->bottom)
 		SWAP3(rc->top, rc->bottom, tmp);
 	return rc;
 }

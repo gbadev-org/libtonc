@@ -5,7 +5,7 @@
 //! \author J Vijn
 //! \date 20070921 - 20070921
 /* === NOTES ===
-  * Only the parts that have some overlap are covered here. 
+  * Only the parts that have some overlap are covered here.
 */
 
 /* libgba copyright header:
@@ -29,7 +29,7 @@
 	Please report all bugs and problems through the bug tracker at
 	"http://sourceforge.net/tracker/?group_id=114505&atid=668551".
 */
- 
+
 
 #ifndef TONC_LIBGBA
 #define TONC_LIBGBA
@@ -140,7 +140,7 @@ static inline void dmaCopy(const void *source, void *dest, u32 size)
 
 // --------------------------------------------------------------------
 //# gba_interrupt.h
-//	ISSUE:: the libgba irq functions works slightly different than 
+//	ISSUE:: the libgba irq functions works slightly different than
 //	mine. This has yet to be resolved
 // --------------------------------------------------------------------
 
@@ -181,58 +181,58 @@ typedef void (*IntFn)(void);
 // --------------------------------------------------------------------
 
 //! \name	SIOCNT bits
-//\{ 
+//\{
 #define SIO_8BIT			0x0000	//!< Normal 8-bit communication mode
 #define SIO_32BIT			0x1000	//!< Normal 32-bit communication mode
 #define SIO_MULTI			0x2000	//!< Multi-play communication mode
 #define SIO_UART			0x3000	//!< UART communication mode
 #define SIO_IRQ				0x4000	//!< Enable serial irq
-//\}				
-				
-//!	\name	Baud rate settings				
+//\}
+
+//!	\name	Baud rate settings
 //\{
-#define SIO_9600			0x0000	
-#define SIO_38400			0x0001	
-#define SIO_57600			0x0002	
-#define SIO_115200			0x0003	
-				
+#define SIO_9600			0x0000
+#define SIO_38400			0x0001
+#define SIO_57600			0x0002
+#define SIO_115200			0x0003
+
 #define SIO_CLK_INT			(1<<0)	//!< Select internal clock
 #define SIO_2MHZ_CLK		(1<<1)	//!< Select 2MHz clock
 #define SIO_RDY				(1<<2)	//!< Opponent SO state
 #define SIO_SO_HIGH			(1<<3)	//!< Our SO state
-#define SIO_START			(1<<7)	
-//\}				
-				
-//! \name	SIO modes set with REG_RCNT				
-//\{
-#define R_NORMAL			0x0000	
-#define R_MULTI				0x0000	
-#define R_UART				0x0000	
-#define R_GPIO				0x8000	
-#define R_JOYBUS			0xC000		
+#define SIO_START			(1<<7)
 //\}
-					
-//! \name	General purpose mode control bits used with REG_RCNT					
+
+//! \name	SIO modes set with REG_RCNT
+//\{
+#define R_NORMAL			0x0000
+#define R_MULTI				0x0000
+#define R_UART				0x0000
+#define R_GPIO				0x8000
+#define R_JOYBUS			0xC000
+//\}
+
+//! \name	General purpose mode control bits used with REG_RCNT
 //\{
 #define	GPIO_SC				0x0001	// Data
-#define	GPIO_SD				0x0002		
-#define	GPIO_SI				0x0004		
-#define	GPIO_SO				0x0008	
-	
-#define	GPIO_SC_IO			0x0010	// Select I/O	
-#define	GPIO_SD_IO			0x0020		
-#define	GPIO_SI_IO			0x0040		
+#define	GPIO_SD				0x0002
+#define	GPIO_SI				0x0004
+#define	GPIO_SO				0x0008
+
+#define	GPIO_SC_IO			0x0010	// Select I/O
+#define	GPIO_SD_IO			0x0020
+#define	GPIO_SI_IO			0x0040
 #define	GPIO_SO_IO			0x0080
-		
-#define	GPIO_SC_INPUT		0x0000	// Input setting	
-#define	GPIO_SD_INPUT		0x0000		
-#define	GPIO_SI_INPUT		0x0000		
+
+#define	GPIO_SC_INPUT		0x0000	// Input setting
+#define	GPIO_SD_INPUT		0x0000
+#define	GPIO_SI_INPUT		0x0000
 #define	GPIO_SO_INPUT		0x0000
-	
+
 #define	GPIO_SC_OUTPUT		0x0010	// Output setting
-#define	GPIO_SD_OUTPUT		0x0020	
-#define	GPIO_SI_OUTPUT		0x0040	
-#define	GPIO_SO_OUTPUT		0x0080	
+#define	GPIO_SD_OUTPUT		0x0020
+#define	GPIO_SI_OUTPUT		0x0040
+#define	GPIO_SO_OUTPUT		0x0080
 //\}
 
 

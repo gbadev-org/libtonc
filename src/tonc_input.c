@@ -12,7 +12,7 @@
 #include "tonc_bios.h"
 
 // --------------------------------------------------------------------
-// CLASSES 
+// CLASSES
 // --------------------------------------------------------------------
 
 //! Repeated keys struct
@@ -27,7 +27,7 @@ typedef struct REPEAT_REC
 
 
 // --------------------------------------------------------------------
-// GLOBALS 
+// GLOBALS
 // --------------------------------------------------------------------
 
 
@@ -37,7 +37,7 @@ REPEAT_REC __key_rpt= { 0, KEY_MASK, 60, 60, 30 };
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 
@@ -81,7 +81,7 @@ void key_wait_till_hit(u16 key)
 		key_poll();
 		if(key_hit(key))
 			return;
-	}	
+	}
 }
 
 // === Repeated keys functions ===
@@ -102,7 +102,7 @@ void key_repeat_mask(u32 mask)
 /*!
 	\param delay	Set first repeat limit. If 0, repeats are off.
 	\param repeat	Sets later repeat limit.
-	\note	Both limits have a range of [0, 255]. If either argument 
+	\note	Both limits have a range of [0, 255]. If either argument
 	  is <0, the old value will be kept.
 */
 void key_repeat_limits(uint delay, uint repeat)

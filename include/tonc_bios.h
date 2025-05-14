@@ -8,26 +8,26 @@
 // === NOTES ===
 //
 // Pretty much copied verbatim from Pern and dkARM's libgba
-// (which in turn is copied from CowBite Spec (which got its info from 
+// (which in turn is copied from CowBite Spec (which got its info from
 //  GBATek))
-// 
+//
 //
 // === NOTES ===
 // * Make SURE your data is aligned to 32bit boundaries. Defining data
-//   as u32 (and I do mean define; not merely cast) ensures this. Either 
+//   as u32 (and I do mean define; not merely cast) ensures this. Either
 //   that or use __attribute__(( aligned(4) ))
-// * There is a large (70 cycle in and out) overhead for SWIs. If you 
+// * There is a large (70 cycle in and out) overhead for SWIs. If you
 //   know what they do, consider creating replacement code
-// * div by 0 locks up GBA. 
+// * div by 0 locks up GBA.
 // * Cpu(Fast)Set's count is in chunks, not bytes. CpuFastSet REQUIRES
 //   n*32 byte data
 // * SoftReset is funky with interrupts on.
-// * VBlankIntrWait is your friend. If you have a VBlank isr that clears 
+// * VBlankIntrWait is your friend. If you have a VBlank isr that clears
 //   REG_IFBIOS as well. Use this instead of REG_VCOUNT polling for
 //   VSync.
-// * I haven't tested many of these functions. The ones that are have a 
+// * I haven't tested many of these functions. The ones that are have a
 //   plus (+) behind their numbers.
-// * I've switched to the standard BIOS names. 
+// * I've switched to the standard BIOS names.
 
 #ifndef TONC_BIOS
 #define TONC_BIOS
@@ -36,14 +36,14 @@
 
 /*!
 	\addtogroup grpBios
-	\brief	Interfaces and constants for the GBA BIOS routines. 
-	
-	For details, see 
+	\brief	Interfaces and constants for the GBA BIOS routines.
+
+	For details, see
 	<a href="https://gbadev.net/tonc/swi.html">tonc:bios</a>
-	and especially 
+	and especially
 	<a href="https://problemkaputt.de/gbatek.htm#biosfunctions">gbatek:bios</a>.
 
-	\note	While the speeds of the routines are fair, there 
+	\note	While the speeds of the routines are fair, there
 	is a large overhead in calling the functions.
 */
 
@@ -139,13 +139,13 @@
 
 
 //! BIOS calls from C
-/*!	You can use this macro in a C BIOS-call wrapper. The wrapper 
+/*!	You can use this macro in a C BIOS-call wrapper. The wrapper
 *	  should declare the flags, then this call will do the rest.
 *	\param x	Number of swi call (THUMB number)
 *	\note	It checks the __thumb__ \#define to see whether we're
-*	  in ARM or THUMB mode and fixes the swi number accordingly. 
+*	  in ARM or THUMB mode and fixes the swi number accordingly.
 *	  Huzzah for the C proprocessor!
-*	\deprecated	This macro will not work properly for functions that have IO. 
+*	\deprecated	This macro will not work properly for functions that have IO.
 */
 #if	defined	( __thumb__ )
 #define	swi_call(x)	 __asm("swi\t"#x ::: "r0", "r1", "r2", "r3")
@@ -160,7 +160,7 @@
 
 // --- affine function 0x0E and 0x0F ---
 
-/* 
+/*
 *  Notational convention: postfix underscore is 2d vector
 *
 *	p_ = (px, py)		= texture coordinates
@@ -169,21 +169,21 @@
 *	     | pc pd |
 *	d_ = (dx, dy)		= background displacement
 *
-*  Then: 
+*  Then:
 *
 * (1)	p_ = P*q_ + d_
 *
-*  For transformation around a different point 
+*  For transformation around a different point
 *  (texture point p0_ and screen point q0_), do
 *
 * (2)	p_ - p0_ = P*(q_-q0_)
-*  
+*
 *  Subtracting eq 2 from eq1 we immediately find:
 *
 * (3)	_d = p0_ - P*q0_
 *
-*  For the special case of a texture->screen scale-then-rotate 
-*  transformation with 
+*  For the special case of a texture->screen scale-then-rotate
+*  transformation with
 *	s_ = (sx, sy)	= inverse scales (s>1 shrinks)
 *	a = alpha		= Counter ClockWise (CCW) angle
 *
@@ -201,7 +201,7 @@
 //! BitUpPack ( for swi 10h)
 typedef struct BUP
 {
-    u16 src_len;	//!< source length (bytes)	
+    u16 src_len;	//!< source length (bytes)
     u8 src_bpp;		//!< source bitdepth (1,2,4,8)
     u8 dst_bpp;		//!< destination bitdepth (1,2,4,8,16,32)
     u32 dst_ofs;	//!< {0-30}: added offset {31}: zero-data offset flag
@@ -273,10 +273,10 @@ s16 ArcTan2(s16 x, s16 y);
 
 //! \name Memory copiers/fillers
 //\{
-// Technically, these are misnomers. The convention is that 
+// Technically, these are misnomers. The convention is that
 // xxxset is used for fills (comp memset, strset). Or perhaps
-// the C library functions are misnomers, since set can be applied 
-// to both copies and fills. 
+// the C library functions are misnomers, since set can be applied
+// to both copies and fills.
 void CpuSet(const void *src, void *dst, u32 mode);
 void CpuFastSet(const void *src, void *dst, u32 mode);
 //\}
@@ -293,7 +293,7 @@ void ObjAffineSet(const ObjAffineSource *src, void *dst, s32 num, s32 offset);
 void BgAffineSet(const BgAffineSource *src, BgAffineDest *dst, s32 num);
 //\}
 
-//! \name Decompression (see GBATek for format details) 
+//! \name Decompression (see GBATek for format details)
 //\{
 void BitUnPack(const void *src, void *dst, const BUP *bup);
 void LZ77UnCompWram(const void *src, void *dst);
@@ -303,7 +303,7 @@ void RLUnCompWram(const void *src, void *dst);
 void RLUnCompVram(const void *src, void *dst);
 void Diff8bitUnFilterWram(const void *src, void *dst);
 void Diff8bitUnFilterVram(const void *src, void *dst);
-void Diff16bitUnFilter(const void *src, void *dst);	
+void Diff16bitUnFilter(const void *src, void *dst);
 //\}
 
 //! \name Sound Functions
@@ -395,8 +395,8 @@ u32 Sqrt(u32 num);
 
 //! Arctangent of \a dydx (swi 08h)
 /*! \param dydx	Slope to get the arctangent of.
-*	\return	Arctangent of \a dydx in the range &lt;-4000h, 4000h&gt;, 
-*	  corresponding to 
+*	\return	Arctangent of \a dydx in the range &lt;-4000h, 4000h&gt;,
+*	  corresponding to
 *	  \htmlonly &lt;-&frac12;&pi;, &frac12;&pi;&gt; \endhtmlonly.
 *	\note Said to be inaccurate near the range's limits.
 */
@@ -409,38 +409,38 @@ s16 ArcTan2(s16 x, s16 y);
 
 
 // --- Memory fills ---
-// Technically, these are misnomers. The convention is that 
+// Technically, these are misnomers. The convention is that
 // xxxset is used for fills (comp memset, strset). Or perhaps
-// the C library functions are misnomers, since set can be applied 
+// the C library functions are misnomers, since set can be applied
 // to both copies and fills.
 
 //! Transfer via CPU in (half)word chunks.
-/*!	The default mode is 16bit copies. With bit 24 set, it copies 
-*	  words; with bit 26 set it will keep the source address constant, 
+/*!	The default mode is 16bit copies. With bit 24 set, it copies
+*	  words; with bit 26 set it will keep the source address constant,
 *	  effectively performing fills instead of copies.
 *	\param src	Source address.
 *	\param dst	Destination address.
-*	\param mode	Number of transfers, and mode bits. 
-*	\note	This basically does a straightforward loop-copy, and is 
+*	\param mode	Number of transfers, and mode bits.
+*	\note	This basically does a straightforward loop-copy, and is
 *	  not particularly fast.
-*	\note	In fill-mode (bit 26), the source is \e still an address, 
+*	\note	In fill-mode (bit 26), the source is \e still an address,
 *	  not a value.
 */
 void CpuSet(const void *src, void *dst, u32 mode);
 
 //! A fast transfer via CPU in 32 byte chunks.
 /*!	This uses ARM's ldmia/stmia instructions to copy 8 words at a time,
-*	  making it rival DMA transfers in speed. With bit 26 set it will 
-*	  keep the source address constant, effectively performing fills 
+*	  making it rival DMA transfers in speed. With bit 26 set it will
+*	  keep the source address constant, effectively performing fills
 *	  instead of copies.
 *	\param src	Source address.
 *	\param dst	Destination address.
-*	\param mode	Number of words to transfer, and mode bits. 
-*	\note	Both source and destination must be word aligned; the 
-*		number of copies must be a multiple of 8. 
-*	\note	In fill-mode (bit 26), the source is \e still an address, 
+*	\param mode	Number of words to transfer, and mode bits.
+*	\note	Both source and destination must be word aligned; the
+*		number of copies must be a multiple of 8.
+*	\note	In fill-mode (bit 26), the source is \e still an address,
 *	  not a value.
-*	\note	memcpy32/16 and memset32/16 basically do the same things, but 
+*	\note	memcpy32/16 and memset32/16 basically do the same things, but
 *	  safer. Use those instead.
 */
 void CpuFastSet(const void *src, void *dst, u32 mode);
@@ -453,8 +453,8 @@ u32 BiosCheckSum(void);
 // can be used for both objs and bgs. Oh well.
 
 //! Sets up a simple scale-then-rotate affine transformation (swi 0Eh).
-/*!	Uses a single \a ObjAffineSource struct to set up an array of affine 
-*	matrices (either BG or Object) with a certain transformation. The 
+/*!	Uses a single \a ObjAffineSource struct to set up an array of affine
+*	matrices (either BG or Object) with a certain transformation. The
 *	matrix created is
 \htmlonly
 <table border=0 cellpadding=4 cellspacing=0>
@@ -472,16 +472,16 @@ u32 BiosCheckSum(void);
 *	\param src	Array with scale and angle information.
 *	\param dst	Array of affine matrices, starting at a \a pa element.
 *	\param num	Number of matrices to set.
-*	\param offset	Offset between affine elements. Use 2 for BG and 
+*	\param offset	Offset between affine elements. Use 2 for BG and
 *	  8 for object matrices.
-*	\note	Each element in \a src needs to be word aligned, which 
+*	\note	Each element in \a src needs to be word aligned, which
 *	  devkitPro doesn't do anymore by itself.
 */
 void ObjAffineSet(const ObjAffineSource *src, void *dst, s32 num, s32 offset);
 void BgAffineSet(const BgAffineSource *src, BgAffineDest *dst, s32 num);
 
 
-// --- Decompression (see GBATek for format details) --- 
+// --- Decompression (see GBATek for format details) ---
 void BitUnPack(const void *src, void *dst, const BUP *bup);	// swi 10h +
 void LZ77UnCompWram(const void *src, void *dst);		// swi 11h +
 void LZ77UnCompVram(const void *src, void *dst);		// swi 12h +
@@ -519,8 +519,8 @@ int MultiBoot(MultiBootParam* mb, u32 mode);	// swi 25h
 void VBlankIntrDelay(u32 count);
 
 //! Div/0-safe division
-/*! The standard Div hangs if \a den = 0. This version will return 
-*	INT_MAX/MIN in that case, depending on the sign of \a num, 
+/*! The standard Div hangs if \a den = 0. This version will return
+*	INT_MAX/MIN in that case, depending on the sign of \a num,
 *	or just \a num / \a den if \a den is not 0.
 *	\param num	Numerator.
 *	\param den	Denominator.
@@ -542,12 +542,12 @@ u32 DivArmAbs(int den, int num);
 
 
 //! A fast word fill
-/*! While you can perform fills with CpuFastSet(), the fact that 
-*	  swi 12 requires a source address makes it awkward to use. 
+/*! While you can perform fills with CpuFastSet(), the fact that
+*	  swi 12 requires a source address makes it awkward to use.
 *	  This function is more like the traditional memset formulation.
 *	\param wd	Fill word.
 *	\param dst	Destination address.
-*	\param mode	Number of words to transfer 
+*	\param mode	Number of words to transfer
 */
 void CpuFastFill(u32 wd, void *dst, u32 mode);
 

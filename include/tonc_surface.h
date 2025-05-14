@@ -17,8 +17,8 @@
 
 /*! \defgroup	grpSurface	Surface functions
 	\ingroup	grpVideo
-	Tonclib's Surface system provides the basic functionality for 
-	drawing onto graphic surfaces of different types. This includes 
+	Tonclib's Surface system provides the basic functionality for
+	drawing onto graphic surfaces of different types. This includes
 	- <b>bmp16</b>: 16bpp bitmap surfaces
 	- <b>bmp8</b>: 8bpp bitmap surfaces.
 	- <b>chr4</b>(c/r): 4bpp tiled surfaces.
@@ -27,14 +27,14 @@
 
 /*! \defgroup	grpSbmp16	16bpp bitmap surfaces
 	\ingroup	grpSurface
-	Routines for 16bpp linear surfaces. For use in modes 3 and 5. Can 
+	Routines for 16bpp linear surfaces. For use in modes 3 and 5. Can
 	also be used for regular tilemaps to a point.
 */
 
 
 /*! \defgroup	grpSbmp8	8bpp bitmap surfaces
 	\ingroup	grpSurface
-	Routines for 8bpp linear surfaces. For use in mode 4 and 
+	Routines for 8bpp linear surfaces. For use in mode 4 and
 	affine tilemaps.
 */
 
@@ -42,16 +42,16 @@
 /*! \defgroup	grpSchr4c	4bpp tiled surfaces, column major
 	\ingroup	grpSurface
 	<p>
-	A (4bpp) tiled surface is formed when each tilemap entry 
-	references a unique tile (this is done by schr4c_prep_map()). 
-	The pixels on the tiles will then uniquely map onto pixels on the 
+	A (4bpp) tiled surface is formed when each tilemap entry
+	references a unique tile (this is done by schr4c_prep_map()).
+	The pixels on the tiles will then uniquely map onto pixels on the
 	screen.
 	</p>
 	<p>
-	There are two ways of map-layout here: row-major indexing and 
-	column-major indexing. The difference if is that tile 1 is to the 
+	There are two ways of map-layout here: row-major indexing and
+	column-major indexing. The difference if is that tile 1 is to the
 	right of tile 0 in the former, but under it in the latter.
-	</p> 
+	</p>
 <pre>
 30x20t screen:
   Row-major:
@@ -65,8 +65,8 @@
      2 22 41 62 ...
 </pre>
 	<p>
-	With 4bpp tiles, the column-major version makes the <i>y</i> 
-	coordinate match up nicely with successive words. For this reason, 
+	With 4bpp tiles, the column-major version makes the <i>y</i>
+	coordinate match up nicely with successive words. For this reason,
 	column-major is preferred over row-major.
 	</p>
 */
@@ -75,16 +75,16 @@
 /*! \defgroup	grpSchr4r	4bpp tiled surfaces, row major
 	\ingroup	grpSurface
 	<p>
-	A (4bpp) tiled surface is formed when each tilemap entry 
-	references a unique tile (this is done by schr4r_prep_map()). 
-	The pixels on the tiles will then uniquely map onto pixels on the 
+	A (4bpp) tiled surface is formed when each tilemap entry
+	references a unique tile (this is done by schr4r_prep_map()).
+	The pixels on the tiles will then uniquely map onto pixels on the
 	screen.
 	</p>
 	<p>
-	There are two ways of map-layout here: row-major indexing and 
-	column-major indexing. The difference if is that tile 1 is to the 
+	There are two ways of map-layout here: row-major indexing and
+	column-major indexing. The difference if is that tile 1 is to the
 	right of tile 0 in the former, but under it in the latter.
-	</p> 
+	</p>
 <pre>
 30x20t screen:
   Row-major:
@@ -98,8 +98,8 @@
      2 22 41 62 ...
 </pre>
 	<p>
-	With 4bpp tiles, the column-major version makes the <i>y</i> 
-	coordinate match up nicely with successive words. For this reason, 
+	With 4bpp tiles, the column-major version makes the <i>y</i>
+	coordinate match up nicely with successive words. For this reason,
 	column-major is preferred over row-major.
 	</p>
 */
@@ -115,7 +115,7 @@
 //! Surface types
 typedef enum ESurfaceType
 {
-	SRF_NONE		=0,		//!< No specific type. 
+	SRF_NONE		=0,		//!< No specific type.
 	SRF_BMP16		=1,		//!< 16bpp linear (bitmap/tilemap).
 	SRF_BMP8		=2,		//!< 8bpp linear (bitmap/tilemap).
 	//SRF_SBB		=3,		//!< 16bpp tilemap in screenblocks
@@ -134,7 +134,7 @@ typedef struct TSurface
 {
 	u8	*data;		//!< Surface data pointer.
 	u32	pitch;		//!< Scanline pitch in bytes (PONDER: alignment?).
-	u16 width;		//!< Image width in pixels.	
+	u16 width;		//!< Image width in pixels.
 	u16 height;		//!< Image width in pixels.
 	u8	bpp;		//!< Bits per pixel.
 	u8	type;		//!< Surface type (not used that much).
@@ -144,7 +144,7 @@ typedef struct TSurface
 
 /*!	\}	*/
 
-//! \name Rendering procedure types 
+//! \name Rendering procedure types
 //\{
 typedef u32 (*fnGetPixel)(const TSurface *src, int x, int y);
 
@@ -153,12 +153,12 @@ typedef void (*fnHLine)(const TSurface *dst, int x1, int y, int x2, u32 clr);
 typedef void (*fnVLine)(const TSurface *dst, int x, int y1, int y2, u32 clr);
 typedef void (*fnLine)(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr);
 
-typedef void (*fnRect)(const TSurface *dst, 
+typedef void (*fnRect)(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr);
-typedef void (*fnFrame)(const TSurface *dst, 
+typedef void (*fnFrame)(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr);
 
-typedef void (*fnBlit)(const TSurface *dst, int dstX, int dstY, 
+typedef void (*fnBlit)(const TSurface *dst, int dstX, int dstY,
 	uint width, uint height, const TSurface *src, int srcX, int srcY);
 typedef void (*fnFlood)(const TSurface *dst, int x, int y, u32 clr);
 
@@ -198,9 +198,9 @@ extern const TSurfaceProcTab chr4c_tab;
 
 /*! \addtogroup grpSurface
 	\brief	Basic video surface API.
-	The TSurface struct and the various functions working on it 
-	provide a basic API for working with different types of 
-	graphic surfaces, like 16bpp bitmaps, 8bpp bitmaps, but also 
+	The TSurface struct and the various functions working on it
+	provide a basic API for working with different types of
+	graphic surfaces, like 16bpp bitmaps, 8bpp bitmaps, but also
 	tiled surfaces.<br>
 
 	- <b>SRF_BMP8</b>:	8bpp linear (Mode 4 / affine BGs)
@@ -208,13 +208,13 @@ extern const TSurfaceProcTab chr4c_tab;
 	- <b>SRF_CHR4C</b>	4bpp tiles, column-major (Regular tiled BG)
 	- <b>SRF_CHR4R</b>	4bpp tiles, row-major (Regular tiled BG, OBJs)
 
-	For each of these functions exist for the most important drawing 
-	options: plotting, lines and rectangles. For BMP8/BMP16 and to 
+	For each of these functions exist for the most important drawing
+	options: plotting, lines and rectangles. For BMP8/BMP16 and to
 	some extent CHR4C, there are blitters as well.
 */
 /*!	\{	*/
 
-void srf_init(TSurface *srf, enum ESurfaceType type, const void *data, 
+void srf_init(TSurface *srf, enum ESurfaceType type, const void *data,
 	uint width, uint height, uint bpp, u16 *pal);
 void srf_pal_copy(const TSurface *dst, const TSurface *src, uint count);
 
@@ -241,11 +241,11 @@ void sbmp16_hline(const TSurface *dst, int x1, int y, int x2, u32 clr);
 void sbmp16_vline(const TSurface *dst, int x, int y1, int y2, u32 clr);
 void sbmp16_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr);
 
-void sbmp16_rect(const TSurface *dst, 
+void sbmp16_rect(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr);
-void sbmp16_frame(const TSurface *dst, 
+void sbmp16_frame(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr);
-void sbmp16_blit(const TSurface *dst, int dstX, int dstY, 
+void sbmp16_blit(const TSurface *dst, int dstX, int dstY,
 	uint width, uint height, const TSurface *src, int srcX, int srcY);
 void sbmp16_floodfill(const TSurface *dst, int x, int y, u32 clr);
 
@@ -266,11 +266,11 @@ void sbmp8_hline(const TSurface *dst, int x1, int y, int x2, u32 clr);
 void sbmp8_vline(const TSurface *dst, int x, int y1, int y2, u32 clr);
 void sbmp8_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr);
 
-void sbmp8_rect(const TSurface *dst, 
+void sbmp8_rect(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr);
-void sbmp8_frame(const TSurface *dst, 
+void sbmp8_frame(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr);
-void sbmp8_blit(const TSurface *dst, int dstX, int dstY, 
+void sbmp8_blit(const TSurface *dst, int dstX, int dstY,
 	uint width, uint height, const TSurface *src, int srcX, int srcY);
 void sbmp8_floodfill(const TSurface *dst, int x, int y, u32 clr);
 
@@ -291,12 +291,12 @@ void schr4c_hline(const TSurface *dst, int x1, int y, int x2, u32 clr);
 void schr4c_vline(const TSurface *dst, int x, int y1, int y2, u32 clr);
 void schr4c_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr);
 
-void schr4c_rect(const TSurface *dst, 
+void schr4c_rect(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr);
-void schr4c_frame(const TSurface *dst, 
+void schr4c_frame(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr);
 
-void schr4c_blit(const TSurface *dst, int dstX, int dstY, 
+void schr4c_blit(const TSurface *dst, int dstX, int dstY,
 	uint width, uint height, const TSurface *src, int srcX, int srcY);
 void schr4c_floodfill(const TSurface *dst, int x, int y, u32 clr);
 
@@ -321,12 +321,12 @@ void schr4r_hline(const TSurface *dst, int x1, int y, int x2, u32 clr);
 void schr4r_vline(const TSurface *dst, int x, int y1, int y2, u32 clr);
 void schr4r_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr);
 
-void schr4r_rect(const TSurface *dst, 
+void schr4r_rect(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr);
-void schr4r_frame(const TSurface *dst, 
+void schr4r_frame(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr);
 
-//void schr4r_blit(const TSurface *dst, int dstX, int dstY, 
+//void schr4r_blit(const TSurface *dst, int dstX, int dstY,
 //	uint width, uint height, const TSurface *src, int srcX, int srcY);
 //void schr4r_floodfill(const TSurface *dst, int x, int y, u32 clr);
 
@@ -357,14 +357,14 @@ INLINE uint srf_align(uint width, uint bpp)
 
 //! Set Data-pointer surface for \a srf.
 INLINE void srf_set_ptr(TSurface *srf, const void *ptr)
-{	
+{
 	srf->data= (u8*)ptr;
 }
 
 
 //! Set the palette pointer and its size.
 INLINE void srf_set_pal(TSurface *srf, const u16 *pal, uint size)
-{	
+{
 	srf->palSize= size;
 	srf->palData= (u16*)pal;
 }
@@ -410,7 +410,7 @@ INLINE void _sbmp8_plot(const TSurface *dst, int x, int y, u32 clr)
 {
 	u16 *dstD= (u16*)(dst->data + y*dst->pitch+(x&~1));
 
-	if(x&1)	   *dstD= (*dstD& 0xFF) | (clr<<  8); 
+	if(x&1)	   *dstD= (*dstD& 0xFF) | (clr<<  8);
 	else	   *dstD= (*dstD&~0xFF) | (clr&0xFF);
 }
 

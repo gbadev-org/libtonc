@@ -13,7 +13,7 @@
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 
@@ -32,7 +32,7 @@
 void txt_init_se(int bgnr, u16 bgcnt, SCR_ENTRY se0, u32 clrs, u32 bupofs)
 {
 	REG_BGCNT[bgnr]= bgcnt;
-	gptxt->dst0= se_mem[BFN_GET(bgcnt, BG_SBB)];	
+	gptxt->dst0= se_mem[BFN_GET(bgcnt, BG_SBB)];
 
 	//ASM_CMT("pal");
 	// prep palette
@@ -40,7 +40,7 @@ void txt_init_se(int bgnr, u16 bgcnt, SCR_ENTRY se0, u32 clrs, u32 bupofs)
 	if(bpp==4)
 	{
 		// Add shading to my 4bit fonts in an uber-1337 way
-		// Are you expected to understand this? 
+		// Are you expected to understand this?
 		//   Nah, didn't think so either :P
 		COLOR *palbank= pal_bg_bank[BFN_GET(se0, SE_PALBANK)];
 		palbank[(bupofs+1)&15]= clrs&0xFFFF;
@@ -48,7 +48,7 @@ void txt_init_se(int bgnr, u16 bgcnt, SCR_ENTRY se0, u32 clrs, u32 bupofs)
 	}
 	else
 		pal_bg_mem[(bupofs+1)&255]= clrs&0xFFFF;
-	
+
 	// account for tile-size difference
 	se0 &= SE_ID_MASK;
 	if(bpp==8)
@@ -95,7 +95,7 @@ void se_puts(int x, int y, const char *str, SCR_ENTRY se0)
 		{	dst += (x&~31) + 32;	x= 0;	}
 		else
 			dst[x++] = (gptxt->chars[c]) + se0;
-	}	
+	}
 }
 
 //!	Clear string \a str from a tilemap at pixel (x, y) with SE \a se0
@@ -116,7 +116,7 @@ void se_clrs(int x, int y, const char *str, SCR_ENTRY se0)
 		{	dst += (x&~31) + 32;	x= 0;	}
 		else
 			dst[x++] = se0;
-	}	
+	}
 }
 
 // EOF

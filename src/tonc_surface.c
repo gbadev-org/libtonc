@@ -13,7 +13,7 @@
 #include "tonc_video.h"
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 //! Initalize a surface for \a type formatted graphics.
@@ -26,7 +26,7 @@
 	\param bpp		Bitdepth. If \a type is not 0, this value will be ignored.
 	\param pal		Pointer to the surface's palette.
 */
-void srf_init(TSurface *srf, enum ESurfaceType type, const void *data, 
+void srf_init(TSurface *srf, enum ESurfaceType type, const void *data,
 	uint width, uint height, uint bpp, u16 *pal)
 {
 	memset(srf, 0, sizeof(TSurface));
@@ -94,7 +94,7 @@ void *srf_get_ptr(const TSurface *srf, uint x, uint y)
 
 	case SRF_CHR4C:
 		return &srf->data[y*4 + x/8*pitch + (x%8)/2];
-		
+
 	default:
 		return &srf->data[y*pitch + x*bpp/8];
 	}

@@ -6,7 +6,7 @@
 //! \date 20060604 - 20060604
 //
 /* === NOTES ===
-	* 20070822. These are old routines, which have been replaced by 
+	* 20070822. These are old routines, which have been replaced by
 		'bmp8_' and 'bmp16' variants.
 */
 
@@ -20,7 +20,7 @@
 
 //! Draw a horizontal line in 8bit mode; internal routine.
 /*!	\param dst		Destination buffer.
-*	\param width	Length of line. 
+*	\param width	Length of line.
 *	\param clrid	Color index to draw.
 *	\note	Does not do normalization or bounds checks.
 */
@@ -43,7 +43,7 @@ void bm8_hline(u8 *dst, int width, u8 clrid)
 
 //! Draw a vertical line in 8bit mode; internal routine.
 /*!	\param dst		Destination buffer.
-*	\param height	Length of line. 
+*	\param height	Length of line.
 *	\param clrid	Color index to draw.
 *	\param pitch	Pitch of buffer.
 *	\note	Does not do normalization or bounds checks.
@@ -67,7 +67,7 @@ void bm8_vline(u8 *dst, int height, u8 clrid, int pitch)
 //! Draw a rectangle in 8bit mode; internal routine.
 /*!	\param dst		Destination buffer.
 *	\param width	Rectangle width.
-*	\param height	Rectangle height. 
+*	\param height	Rectangle height.
 *	\param clrid	Color index to draw.
 *	\param pitch	Pitch of buffer.
 *	\note	Does not do normalization or bounds checks.
@@ -101,7 +101,7 @@ void bm8_rect(u8 *dst, int width, int height, u8 clrid, int pitch)
 	width >>= 1;
 	if(width == 0)
 		return;
-	
+
 	dst16= (u16*)dst;
 	pxl= clrid|(clrid<<8);
 
@@ -115,7 +115,7 @@ void bm8_rect(u8 *dst, int width, int height, u8 clrid, int pitch)
 //! Draw a rectangle border in 8bit mode; internal routine
 /*!	\param dst		Destination buffer.
 *	\param width	Frame width.
-*	\param height	Frame height. 
+*	\param height	Frame height.
 *	\param clrid	Color index to draw.
 *	\param pitch	Pitch of buffer.
 *	\note	Does not do normalization or bounds checks.
@@ -176,7 +176,7 @@ void bm16_vline(u16 *dst, int height, u16 clr, int pitch)
 void bm16_line(u16 *dst, int dx, int dy, COLOR clr, int pitch)
 {
 	int ii, xstep, ystep, dd;
-	
+
 	// --- Normalization ---
 
 	if(dx<0)
@@ -213,7 +213,7 @@ void bm16_line(u16 *dst, int dx, int dy, COLOR clr, int pitch)
 
 			dd += 2*dy;
 			dst += xstep;
-		}				
+		}
 	}
 	else				// Diagonal, slope > 1
 	{
@@ -227,7 +227,7 @@ void bm16_line(u16 *dst, int dx, int dy, COLOR clr, int pitch)
 
 			dd += 2*dx;
 			dst += ystep;
-		}		
+		}
 	}
 }
 
@@ -235,7 +235,7 @@ void bm16_line(u16 *dst, int dx, int dy, COLOR clr, int pitch)
 //! Draw a rectangle in 16bit mode; internal routine.
 /*!	\param dst		Destination buffer.
 *	\param width	Rectangle width.
-*	\param height	Rectangle height. 
+*	\param height	Rectangle height.
 *	\param clr		Color to draw.
 *	\param pitch	Pitch of buffer.
 *	\note	No bound checks; normalization switches TL and RB coords
@@ -247,7 +247,7 @@ void bm16_rect(u16 *dst, int width, int height, u16 clr, int pitch)
 
 	if(height<0)
 	{	dst += height*pitch;	height= -height;	}
-	
+
 	while(height--)
 	{
 		memset16(dst, clr, width);
@@ -258,7 +258,7 @@ void bm16_rect(u16 *dst, int width, int height, u16 clr, int pitch)
 //! Draw a rectangle border in 16bit mode; internal routine.
 /*!	\param dst		Destination buffer.
 *	\param width	Frame width.
-*	\param height	Frame height. 
+*	\param height	Frame height.
 *	\param clr		Color to draw.
 *	\param pitch	Pitch of buffer.
 *	\note	No bound checks; normalization switches TL and RB coords

@@ -1,26 +1,26 @@
 //
-//  GBA Memory map 
+//  GBA Memory map
 //
 //! \file tonc_memmap.h
 //! \author J Vijn
 //! \date 20060508 - 20060508
 //
-// 
+//
 // === NOTES ===
 //
 // * The REG_BGxy registers for affine backgrounds
 //   should be _signed_ (vs16 / vs32), not unsigned (vu16 / vu32)
-// * I have removed several REG_x_L, REG_x_H pairs because all they 
+// * I have removed several REG_x_L, REG_x_H pairs because all they
 //   do is clutter up the file
-// * C++ doesn't seem to like struct copies if the type specifiers 
-//   don't match (e.g., volatile, non-volatile). Most registers 
-//   don't really need the volatile specifier anyway, so if this 
+// * C++ doesn't seem to like struct copies if the type specifiers
+//   don't match (e.g., volatile, non-volatile). Most registers
+//   don't really need the volatile specifier anyway, so if this
 //   presents a problem consider removing it.
-// * I'm using defines for the memory map here, but GCC cannot optimize 
+// * I'm using defines for the memory map here, but GCC cannot optimize
 //   these properly and they will often appear inside a loop, potentially
-//   slowing it down to up 50% or so, depending on how much you do 
-//   in the loop. Possible remedy: use a set of global pointers for the 
-//   memory map instead of defines. It'll only be 4 or so pointers, so 
+//   slowing it down to up 50% or so, depending on how much you do
+//   in the loop. Possible remedy: use a set of global pointers for the
+//   memory map instead of defines. It'll only be 4 or so pointers, so
 //   it should be ok. (PONDER: system with void pointers?)
 
 #ifndef TONC_MEMMAP
@@ -97,14 +97,14 @@
 
 
 // --------------------------------------------------------------------
-//  STRUCTURED MEMORY MAP 
+//  STRUCTURED MEMORY MAP
 // --------------------------------------------------------------------
 
 
 /*! \defgroup grpMemArray Memory mapped arrays
 	\ingroup grpMemmap
-	\brief	These are some macros for easier access of various 
-	  memory sections. They're all arrays or matrices, using the 
+	\brief	These are some macros for easier access of various
+	  memory sections. They're all arrays or matrices, using the
 	  types that would be the most natural for that concept.
 */
 /*	\{	*/
@@ -118,19 +118,19 @@
 */
 #define pal_bg_mem		((COLOR*)MEM_PAL)
 
-//! Object palette. 
+//! Object palette.
 /*! pal_obj_mem[i]	= color i					( COLOR )
 */
 #define pal_obj_mem		((COLOR*)MEM_PAL_OBJ)
 
 
-//! Background palette matrix. 
+//! Background palette matrix.
 /*! pal_bg_bank[y]		= bank y				( COLOR[ ] )<br>
 	pal_bg_bank[y][x]	= color color y*16+x	( COLOR )
 */
 #define pal_bg_bank		((PALBANK*)MEM_PAL)
 
-//! Object palette matrix. 
+//! Object palette matrix.
 /*!	pal_obj_bank[y]		= bank y				( COLOR[ ] )<br>
 	pal_obj_bank[y][x]	= color y*16+x			( COLOR )
 */
@@ -231,7 +231,7 @@
 #define obj_mem			((OBJ_ATTR*)MEM_OAM)
 
 //! Object affine memory
-/*!	obj_aff_mem[i]		= object matrix i			( OBJ_AFFINE )	
+/*!	obj_aff_mem[i]		= object matrix i			( OBJ_AFFINE )
 */
 #define obj_aff_mem		((OBJ_AFFINE*)MEM_OAM)
 
@@ -459,7 +459,7 @@
 #define REG_SIOMULTI		((vu16*)(REG_BASE+0x0120))	//!< Multiplayer data array
 #define REG_SIOMULTI0		*(vu16*)(REG_BASE+0x0120)	//!< MP master data
 #define REG_SIOMULTI1		*(vu16*)(REG_BASE+0x0122)	//!< MP Slave 1 data
-#define REG_SIOMULTI2		*(vu16*)(REG_BASE+0x0124)	//!< MP Slave 2 data 
+#define REG_SIOMULTI2		*(vu16*)(REG_BASE+0x0124)	//!< MP Slave 2 data
 #define REG_SIOMULTI3		*(vu16*)(REG_BASE+0x0126)	//!< MP Slave 3 data
 
 #define REG_SIOMLT_RECV		*(vu16*)(REG_BASE+0x0120)	//!< MP data receiver

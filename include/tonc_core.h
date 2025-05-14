@@ -72,9 +72,9 @@
 
 
 /*! \name some EVIL bit-field operations, >:)
-*	These allow you to mimic bitfields with macros. Most of the 
-*	bitfields in the registers have <i>foo</i>_SHIFT and 
-*	<i>foo</i>_SHIFT macros indicating the mask and shift values 
+*	These allow you to mimic bitfields with macros. Most of the
+*	bitfields in the registers have <i>foo</i>_SHIFT and
+*	<i>foo</i>_SHIFT macros indicating the mask and shift values
 *	of the bitfield named <i>foo</i> in a variable.
 *	These macros let you prepare, get and set the bitfields.
 */
@@ -166,20 +166,20 @@ IWRAM_CODE void memcpy32(void *dst, const void* src, uint wcount);
 void memset16(void *dst, u16 hw, uint hwcount);
 
 //!	\brief Copy for halfwords.
-/*!	Uses <code>memcpy32()</code> if \a hwn>6 and 
+/*!	Uses <code>memcpy32()</code> if \a hwn>6 and
 	  \a src and \a dst are aligned equally.
 	\param dst	Destination address.
 	\param src	Source address.
 	\param hwcount	 Number of halfwords to fill.
 	\note \a dst and \a src <b>must</b> be halfword aligned.
-	\note \a r0 and \a r1 return as 
+	\note \a r0 and \a r1 return as
 	  \a dst + \a hwcount*2 and \a src + \a hwcount*2.
 */
 void memcpy16(void *dst, const void* src, uint hwcount);
 
 
 //!	Fast-fill by words, analogous to memset()
-/*! Like CpuFastSet(), only without the requirement of 
+/*! Like CpuFastSet(), only without the requirement of
 	  32byte chunks and no awkward store-value-in-memory-first issue.
 	\param dst	Destination address.
 	\param wd	Fill word (not address).
@@ -196,7 +196,7 @@ IWRAM_CODE void memset32(void *dst, u32 wd, uint wdcount);
 	\param src	Source address.
 	\param wdcount	Number of words.
 	\note	\a src and \a dst <b>must</b> be word aligned.
-	\note	\a r0 and \a r1 return as 
+	\note	\a r0 and \a r1 return as
 	  \a dst + \a wdcount*4 and \a src + \a wdcount*4.
 */
 IWRAM_CODE void memcpy32(void *dst, const void* src, uint wdcount);
@@ -205,7 +205,7 @@ IWRAM_CODE void memcpy32(void *dst, const void* src, uint wdcount);
 
 
 /*! \name Repeated-value creators
-	These function take a hex-value and duplicate it to all fields, 
+	These function take a hex-value and duplicate it to all fields,
 	like 0x88 -> 0x88888888.
 */
 //\{
@@ -272,10 +272,10 @@ INLINE uint profile_stop(void);
 // --------------------------------------------------------------------
 
 
-typedef enum 
-{	
-	NOTE_C=0, NOTE_CIS, NOTE_D,   NOTE_DIS, 
-	NOTE_E,   NOTE_F,   NOTE_FIS, NOTE_G, 
+typedef enum
+{
+	NOTE_C=0, NOTE_CIS, NOTE_D,   NOTE_DIS,
+	NOTE_E,   NOTE_F,   NOTE_FIS, NOTE_G,
 	NOTE_GIS, NOTE_A,   NOTE_BES, NOTE_B
 } eSndNoteId;
 
@@ -379,7 +379,7 @@ INLINE u32 bf_get(u32 y, uint shift, uint len)
 	\param shift	Bitfield Start;
 	\param len	Length of bitfield.
 	\return	Result of merger: (y&~M) | (x<<s & M)
-	\note	Does \e not write the result back into \a y (Because pure C 
+	\note	Does \e not write the result back into \a y (Because pure C
 		does't have references, that's why)
 */
 INLINE u32 bf_merge(u32 y, u32 x, uint shift, uint len)
@@ -399,7 +399,7 @@ INLINE u32 bf_clamp(int x, uint len)
 
 
 //! Gives a tribool (-1, 0, or +1) depending on the state of some bits.
-/*! Looks at the \a plus and \a minus bits of \a flags, and subtracts 
+/*! Looks at the \a plus and \a minus bits of \a flags, and subtracts
 	  their status to give a +1, -1 or 0 result. Useful for direction flags.
 	\param flags	Value with bit-flags.
 	\param plus		Bit number for positive result.
@@ -413,7 +413,7 @@ INLINE int bit_tribool(u32 flags, uint plus, uint minus)
 
 
 //! Rotate bits right. Yes, this does lead to a ror instruction.
-INLINE u32 ROR(u32 x, uint ror)	
+INLINE u32 ROR(u32 x, uint ror)
 {	return (x<<(32-ror)) | (x>>ror);				}
 
 
@@ -522,11 +522,11 @@ INLINE void dma3_fill(void *dst, volatile u32 src, uint size)
 
 // --- Random ---------------------------------------------------------
 
-//! Quick (and very dirty) pseudo-random number generator 
+//! Quick (and very dirty) pseudo-random number generator
 /*! \return random in range [0,8000h>
 */
 INLINE int qran(void)
-{	
+{
 	__qran_seed= 1664525*__qran_seed+1013904223;
 	return (__qran_seed>>16) & QRAN_MAX;
 }
@@ -536,7 +536,7 @@ INLINE int qran(void)
 /*! \return random in range [\a min, \a max>
 *	\note (max-min) must be lower than 8000h
 */
-INLINE int qran_range(int min, int max)	
+INLINE int qran_range(int min, int max)
 {	return (qran()*(max-min)>>QRAN_SHIFT)+min;		}
 
 

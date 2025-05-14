@@ -18,42 +18,42 @@ typedef u16 pixel_t;
 	(pixel_t*)(psrf->data + (y)*psrf->pitch + (x)*sizeof(pixel_t) )
 
 
-void sbmp16_floodfill_internal(const TSurface *dst, int x, int y, 
+void sbmp16_floodfill_internal(const TSurface *dst, int x, int y,
 	u16 clrNew, u16 clrOld);
 
 // --------------------------------------------------------------------
 // GLOBALS
 // --------------------------------------------------------------------
 
-const TSurface m3_surface= 
+const TSurface m3_surface=
 {
-	(u8*)m3_mem , M3_WIDTH*2, M3_WIDTH, M3_HEIGHT, SRF_BMP16, 16, 
+	(u8*)m3_mem , M3_WIDTH*2, M3_WIDTH, M3_HEIGHT, SRF_BMP16, 16,
 	0, NULL
 };
 
-EWRAM_DATA TSurface m5_surface= 
+EWRAM_DATA TSurface m5_surface=
 {
-	(u8*)m5_mem , M5_WIDTH*2, M5_WIDTH, M5_HEIGHT, SRF_BMP16, 16, 
+	(u8*)m5_mem , M5_WIDTH*2, M5_WIDTH, M5_HEIGHT, SRF_BMP16, 16,
 	0, NULL
 };
 
 
-const TSurfaceProcTab bmp16_tab= 
+const TSurfaceProcTab bmp16_tab=
 {
 	"bmp16",
 	sbmp16_get_pixel,
-	sbmp16_plot, 
-	sbmp16_hline, 
-	sbmp16_vline, 
-	sbmp16_line, 
-	sbmp16_rect, 
-	sbmp16_frame, 
-	sbmp16_blit, 
-	sbmp16_floodfill, 
+	sbmp16_plot,
+	sbmp16_hline,
+	sbmp16_vline,
+	sbmp16_line,
+	sbmp16_rect,
+	sbmp16_frame,
+	sbmp16_blit,
+	sbmp16_floodfill,
 };
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 
@@ -91,8 +91,8 @@ void sbmp16_hline(const TSurface *dst, int x1, int y, int x2, u32 clr)
 	// --- Normalize ---
 	if(x2<x1)
 	{	int tmp= x1; x1= x2; x2= tmp;	}
-	
-	// --- Draw ---	
+
+	// --- Draw ---
 	memset16(PXPTR(dst, x1, y), clr, x2-x1+1);
 }
 
@@ -111,7 +111,7 @@ void sbmp16_vline(const TSurface *dst, int x, int y1, int y2, u32 clr)
 	// --- Normalize ---
 	if(y2<y1)
 	{	int tmp= y1; y1= y2; y2= tmp;	}
-		
+
 	u32 height= y2-y1+1;
 	pixel_t *dstL= PXPTR(dst, x, y1);
 	u32 dstP= dst->pitch/PXSIZE;
@@ -174,7 +174,7 @@ void sbmp16_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 
 			dd += 2*dy;
 			dstL += xstep;
-		}				
+		}
 	}
 	else				// Diagonal, slope > 1
 	{
@@ -188,7 +188,7 @@ void sbmp16_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 
 			dd += 2*dx;
 			dstL += ystep;
-		}		
+		}
 	}
 }
 
@@ -202,7 +202,7 @@ void sbmp16_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 	\param clr		Color.
 	\note	Does normalization, but not bounds checks.
 */
-void sbmp16_rect(const TSurface *dst, 
+void sbmp16_rect(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr)
 {
 	if(left==right || top==bottom)
@@ -231,7 +231,7 @@ void sbmp16_rect(const TSurface *dst,
 	\note	Does normalization, but not bounds checks.
 	\note	PONDER: RB in- or exclusive?
 */
-void sbmp16_frame(const TSurface *dst, 
+void sbmp16_frame(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr)
 {
 	if(left==right || top==bottom)
@@ -275,7 +275,7 @@ void sbmp16_frame(const TSurface *dst,
 	\param srcY		Top coord of rectangle on \a src.
 	\note			The rectangle will be clipped to both \a src and \a dst.
 */
-void sbmp16_blit(const TSurface *dst, int dstX, int dstY, 
+void sbmp16_blit(const TSurface *dst, int dstX, int dstY,
 	uint width, uint height, const TSurface *src, int srcX, int srcY)
 {
 	// Safety checks
@@ -313,7 +313,7 @@ void sbmp16_blit(const TSurface *dst, int dstX, int dstY,
 	{
 		memcpy16(dstL, srcL, w);
 		srcL += srcP;
-		dstL += dstP;		
+		dstL += dstP;
 	}
 
 #undef BLIT_CLIP
@@ -339,12 +339,12 @@ void sbmp16_floodfill(const TSurface *dst, int x, int y, u32 clr)
 }
 
 //! Internal routine for floodfill
-void sbmp16_floodfill_internal(const TSurface *dst, int x, int y, 
+void sbmp16_floodfill_internal(const TSurface *dst, int x, int y,
 	pixel_t clrNew, pixel_t clrOld)
 {
 	pixel_t *dstL= PXPTR(dst, 0, y);
 	u32 dstPitch= dst->pitch/PXSIZE, dstH= dst->height;
-	
+
 	// Find horz edges, then fill
 	int ii, left=x, right=x;
 
@@ -357,13 +357,13 @@ void sbmp16_floodfill_internal(const TSurface *dst, int x, int y,
 	// Recursive *ick*. All the stack-work's making GBA's head spin.
 	for(ii=left; ii<=right; ii++)
 	{
-		// clr-first check saves 
+		// clr-first check saves
 		if(dstL[ii-dstPitch] == clrOld && y>0)
 			sbmp16_floodfill_internal(dst, ii, y-1, clrNew, clrOld);
-		
+
 		if(dstL[ii+dstPitch] == clrOld && y+1<dstH)
-			sbmp16_floodfill_internal(dst, ii, y+1, clrNew, clrOld);		
-	}	
+			sbmp16_floodfill_internal(dst, ii, y+1, clrNew, clrOld);
+	}
 }
 
 // EOF

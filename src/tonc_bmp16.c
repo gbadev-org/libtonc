@@ -15,7 +15,7 @@
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 //! Plot a single pixel on a 16-bit buffer
@@ -36,7 +36,7 @@ void bmp16_plot(int x, int y, u32 clr, void *dstBase, uint dstP)
 
 
 //! Draw a horizontal line on an 16bit buffer
-/*!	
+/*!
 	\param x1		First X-coord.
 	\param y		Y-coord.
 	\param x2		Second X-coord.
@@ -52,8 +52,8 @@ void bmp16_hline(int x1, int y, int x2, u32 clr, void *dstBase, uint dstP)
 	{	int tmp= x1; x1= x2; x2= tmp;	}
 
 	u16 *dstL= (u16*)(dstBase+y*dstP + x1*2);
-	
-	// --- Draw ---	
+
+	// --- Draw ---
 	memset16(dstL, clr, x2-x1+1);
 }
 
@@ -73,7 +73,7 @@ void bmp16_vline(int x, int y1, int y2, u32 clr, void *dstBase, uint dstP)
 	// --- Normalize ---
 	if(y2<y1)
 	{	int tmp= y1; y1= y2; y2= tmp;	}
-		
+
 	uint height= y2-y1+1;
 	u16 *dstL= (u16*)(dstBase+y1*dstP);
 	dstP /= 2;
@@ -95,7 +95,7 @@ void bmp16_vline(int x, int y1, int y2, u32 clr, void *dstBase, uint dstP)
 	\param dstP		Canvas pitch in bytes.
 	\note	Does normalization, but not bounds checks.
 */
-void bmp16_line(int x1, int y1, int x2, int y2, u32 clr, 
+void bmp16_line(int x1, int y1, int x2, int y2, u32 clr,
 	void *dstBase, uint dstP)
 {
 	int ii, dx, dy, xstep, ystep, dd;
@@ -138,7 +138,7 @@ void bmp16_line(int x1, int y1, int x2, int y2, u32 clr,
 
 			dd += 2*dy;
 			dstL += xstep;
-		}				
+		}
 	}
 	else				// Diagonal, slope > 1
 	{
@@ -152,7 +152,7 @@ void bmp16_line(int x1, int y1, int x2, int y2, u32 clr,
 
 			dd += 2*dx;
 			dstL += ystep;
-		}		
+		}
 	}
 }
 

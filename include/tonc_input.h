@@ -21,7 +21,7 @@
 /*!	\addtogroup grpInput
 	\brief	Routines for synchronous and asynchronous button states.
 
-	For details, see 
+	For details, see
 	<a href="https://gbadev.net/tonc/keys.html">tonc:keys</a>.
 */
 
@@ -35,7 +35,7 @@
 
 typedef enum eKeyIndex
 {
-	KI_A=0, KI_B, KI_SELECT, KI_START, 
+	KI_A=0, KI_B, KI_SELECT, KI_START,
 	KI_RIGHT, KI_LEFT, KI_UP, KI_DOWN,
 	KI_R, KI_L, KI_MAX
 } eKeyIndex;
@@ -44,14 +44,14 @@ typedef enum eKeyIndex
 
 
 // --------------------------------------------------------------------
-// MACROS 
+// MACROS
 // --------------------------------------------------------------------
 
 
 // Check which of the specified keys are down or up right now
 
 #define KEY_DOWN_NOW(key)	(~(REG_KEYINPUT) & key)
-#define KEY_UP_NOW(key)		( (REG_KEYINPUT) & key)	
+#define KEY_UP_NOW(key)		( (REG_KEYINPUT) & key)
 
 // test whether all keys are pressed, released, whatever.
 // Example use:
@@ -64,7 +64,7 @@ typedef enum eKeyIndex
 
 
 // --------------------------------------------------------------------
-// GLOBALS 
+// GLOBALS
 // --------------------------------------------------------------------
 
 
@@ -72,7 +72,7 @@ extern u16 __key_curr, __key_prev;
 
 
 // --------------------------------------------------------------------
-// PROTOTYPES 
+// PROTOTYPES
 // --------------------------------------------------------------------
 
 
@@ -162,19 +162,19 @@ INLINE u32 key_released(u32 key)
 
 
 //! Horizontal tribool (right,left)=(+,-)
-INLINE int key_tri_horz(void)		
+INLINE int key_tri_horz(void)
 {	return bit_tribool(__key_curr, KI_RIGHT, KI_LEFT);	}
 
 //! Vertical tribool (down,up)=(+,-)
-INLINE int key_tri_vert(void)		
+INLINE int key_tri_vert(void)
 {	return bit_tribool(__key_curr, KI_DOWN, KI_UP);		}
 
 //! Shoulder-button tribool (R,L)=(+,-)
-INLINE int key_tri_shoulder(void)	
+INLINE int key_tri_shoulder(void)
 {	return bit_tribool(__key_curr, KI_R, KI_L);			}
 
 //! Fire-button tribool (A,B)=(+,-)
-INLINE int key_tri_fire(void)		
+INLINE int key_tri_fire(void)
 {	return bit_tribool(__key_curr, KI_A, KI_B);			}
 
 

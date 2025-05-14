@@ -19,7 +19,7 @@ BEGIN_FUNC_ARM(isr_master_nest, CSEC_IWRAM)
 	mov		r3, #0x04000000
 	ldr		r2, [r3, #0x200]!
 	and		r2, r2, r2, lsr #16		@ irq_curr= IE & IF
-	
+
 	@ REG_IFBIOS |= irq_curr
 	ldr		r1, [r3, #-0x208]
 	orr		r1, r1, r2
@@ -31,13 +31,13 @@ BEGIN_FUNC_ARM(isr_master_nest, CSEC_IWRAM)
 	ldr		r0, =__isr_table
 	mov		r12, #0
 .Lirq_search:
-		ldr		r1, [r0], #8 
+		ldr		r1, [r0], #8
 		tst		r1, r2
 		bne		.Lirq_found		@ Found it, break off search
 		orr		r12, r12, r1
 		cmp		r1, #0
 		bne		.Lirq_search	@ Not here; try next irq_rec
-	
+
 	@ --- No irq or ISR: just ack and return ---
 .Lirq_none:
 	strh	r2, [r3, #2]	@ REG_IF= irq_curr (is this right?)
@@ -86,7 +86,7 @@ BEGIN_FUNC_ARM(isr_master_nest, CSEC_IWRAM)
 	bic		r2, r2, #0xDF
 	orr		r2, r2, #0x92
 	msr		cpsr, r2
-	
+
 	ldmfd	sp!, {r2, r12, lr}	@ sp_irq,{ieif, spsr, lr_irq}
 	msr		spsr, r12
 

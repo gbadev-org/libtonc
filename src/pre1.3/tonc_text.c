@@ -6,14 +6,14 @@
 //! \date 20060605 - 20060605
 //
 // === NOTES ===
-// * Since BitUnPack doesn't always work properly (VBA), I've put 
-//   txt_bup_1toX in here to remedy that. Wish I didn't have to. 
+// * Since BitUnPack doesn't always work properly (VBA), I've put
+//   txt_bup_1toX in here to remedy that. Wish I didn't have to.
 
 #include "tonc_text.h"
 
 
 // --------------------------------------------------------------------
-// GLOBALS 
+// GLOBALS
 // --------------------------------------------------------------------
 
 
@@ -24,7 +24,7 @@ TXT_BASE *gptxt= &__txt_base;
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 

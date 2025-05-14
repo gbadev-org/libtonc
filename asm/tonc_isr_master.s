@@ -20,9 +20,9 @@
 	@ r1 : __isr_table / isr
 	@ r2 : IF & IE
 	@ r3 : tmp
-	@ ip : (IF,IE)	
+	@ ip : (IF,IE)
 BEGIN_FUNC_ARM(isr_master, CSEC_IWRAM)
-	@ Read IF/IE 
+	@ Read IF/IE
 	mov		r0, #0x04000000
 	ldr		ip, [r0, #0x200]!
 	and		r2, ip, ip, lsr #16		@ irq= IE & IF
@@ -37,7 +37,7 @@ BEGIN_FUNC_ARM(isr_master, CSEC_IWRAM)
 	ldr		r1, =__isr_table
 
 .Lirq_search:
-		ldr		r3, [r1], #8 
+		ldr		r3, [r1], #8
 		tst		r3, r2
 		bne		.Lpost_search		@ Found one, break off search
 		cmp		r3, #0
@@ -51,11 +51,11 @@ BEGIN_FUNC_ARM(isr_master, CSEC_IWRAM)
 
 	@ --- If we're here, we have an isr ---
 
-	ldr		r3, [r0, #8]			@ Read IME 
+	ldr		r3, [r0, #8]			@ Read IME
 	strb	r0, [r0, #8]			@ Clear IME
 	bic		r2, ip, r2
 	strh	r2, [r0]				@ Clear current irq in IE
-	
+
 	mrs		r2, spsr
 	stmfd	sp!, {r2-r3, ip, lr}	@ sprs, IME, (IE,IF), lr_irq
 
@@ -84,7 +84,7 @@ BEGIN_FUNC_ARM(isr_master, CSEC_IWRAM)
 	msr		spsr, r2			@ Restore spsr
 	strh	ip, [r0]			@ Restore IE
 	str		r3, [r0, #8]		@ Restore IME
-	
+
 	bx		lr
 END_FUNC(isr_master)
 

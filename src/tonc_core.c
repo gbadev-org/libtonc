@@ -18,7 +18,7 @@
 
 const u8 oam_sizes[3][4][2]=
 {
-	{ { 8, 8}, {16,16}, {32,32}, {64,64} }, 
+	{ { 8, 8}, {16,16}, {32,32}, {64,64} },
 	{ {16, 8}, {32, 8}, {32,16}, {64,32} },
 	{ { 8,16}, { 8,32}, {16,32}, {32,64} },
 };
@@ -34,7 +34,7 @@ const uint __snd_rates[12]=
 
 
 // --------------------------------------------------------------------
-// GLOBALS 
+// GLOBALS
 // --------------------------------------------------------------------
 
 
@@ -43,16 +43,16 @@ COLOR *vid_page= vid_mem_back;
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 
 // --- data -----------------------------------------------------------
 
 //! VRAM-safe cpy.
-/*!	This version mimics memcpy in functionality, with 
-	the benefit of working for VRAM as well. It is also 
-	slightly faster than the original memcpy, but faster 
+/*!	This version mimics memcpy in functionality, with
+	the benefit of working for VRAM as well. It is also
+	slightly faster than the original memcpy, but faster
 	implementations can be made.
 	\param dst	Destination pointer.
 	\param src	Source pointer.
@@ -127,15 +127,15 @@ void *tonccpy(void *dst, const void *src, uint size)
 }
 
 //! VRAM-safe memset, internal routine.
-/*!	This version mimics memset in functionality, with 
-	the benefit of working for VRAM as well. It is also 
+/*!	This version mimics memset in functionality, with
+	the benefit of working for VRAM as well. It is also
 	slightly faster than the original memset.
 	\param dst	Destination pointer.
 	\param fill	Word to fill with.
 	\param size	Fill-length in bytes.
 	\return		\a dst.
-	\note	The \a dst pointer and \a size need not be 
-		word-aligned. In the case of unaligned fills, \a fill 
+	\note	The \a dst pointer and \a size need not be
+		word-aligned. In the case of unaligned fills, \a fill
 		will be masked off to match the situation.
 */
 void *__toncset(void *dst, u32 fill, uint size)
@@ -153,7 +153,7 @@ void *__toncset(void *dst, u32 fill, uint size)
 		// Adjust for very small stint.
 		if(left+size<4)
 		{
-			mask= BIT_MASK(size*8)<<(left*8);	
+			mask= BIT_MASK(size*8)<<(left*8);
 			*dst32= (*dst32 &~ mask) | (fill & mask);
 			return dst;
 		}
@@ -192,19 +192,19 @@ void *__toncset(void *dst, u32 fill, uint size)
 // --- random numbers -------------------------------------------------
 
 int sqran(int seed)
-{	
+{
 	int old= __qran_seed;
-	__qran_seed= seed; 
-	return old;	
+	__qran_seed= seed;
+	return old;
 }
 
 // --- misc -----------------------------------------------------------
 
 //! Get the octant that (\a x, \a y) is in.
-/*!	This function divides the circle in 8 parts. The angle 
+/*!	This function divides the circle in 8 parts. The angle
 	starts at the \a y=0 line and then moves in the direction
 	of the \a x=0 line. On the screen, this would be like
-	starting at the 3 o'clock position and moving clockwise 
+	starting at the 3 o'clock position and moving clockwise
 */
 u32 octant(int x, int y)
 {
@@ -216,9 +216,9 @@ u32 octant(int x, int y)
 }
 
 //! Get the rotated octant that (\a x, \a y) is in.
-/*!	Like \c octant() but with a twist. The 0-octant starts 
-	22.5° earlier so that 3 o'clock falls in the middle of 
-	octant 0, instead of at its start. This can be useful for 
+/*!	Like \c octant() but with a twist. The 0-octant starts
+	22.5° earlier so that 3 o'clock falls in the middle of
+	octant 0, instead of at its start. This can be useful for
 	8 directional pointing.
 */
 u32 octant_rot(int x0, int y0)

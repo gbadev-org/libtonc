@@ -15,7 +15,7 @@
 #include "tonc_math.h"
 
 // --------------------------------------------------------------------
-// PROTOTYPES 
+// PROTOTYPES
 // --------------------------------------------------------------------
 
 
@@ -24,7 +24,7 @@ INLINE u32 chr4_rmask(uint right);
 INLINE void chr4c_plot(int x, int y, u32 clr, void *dstBase, u32 dstP);
 INLINE void chr4c_colset(u32 *dstD, uint left, uint right, uint height, u32 clr);
 
-void schr4c_floodfill_internal(const TSurface *dst, int x, int y, 
+void schr4c_floodfill_internal(const TSurface *dst, int x, int y,
 	u32 clrNew, u32 clrOld);
 
 
@@ -32,22 +32,22 @@ void schr4c_floodfill_internal(const TSurface *dst, int x, int y,
 // GLOBALS
 // --------------------------------------------------------------------
 
-const TSurfaceProcTab chr4c_tab= 
+const TSurfaceProcTab chr4c_tab=
 {
 	"chr4c",
 	schr4c_get_pixel,
-	schr4c_plot, 
-	schr4c_hline, 
-	schr4c_vline, 
-	schr4c_line, 
-	schr4c_rect, 
-	schr4c_frame, 
-	schr4c_blit, 
-	schr4c_floodfill, 
+	schr4c_plot,
+	schr4c_hline,
+	schr4c_vline,
+	schr4c_line,
+	schr4c_rect,
+	schr4c_frame,
+	schr4c_blit,
+	schr4c_floodfill,
 };
 
 // --------------------------------------------------------------------
-// HELPERS 
+// HELPERS
 // --------------------------------------------------------------------
 
 //! Returns the clear-mask for the left side of a fill rect.
@@ -89,7 +89,7 @@ INLINE void chr4c_colset(u32 *dstD, uint left, uint right, uint height, u32 clr)
 }
 
 //! Prepare a screen-entry map for use with chr4.
-/*!	
+/*!
 	\param srf	Surface with size information.
 	\param map	Screen-blocked map to initialize.
 	\param se0	Additive base screen-entry.
@@ -109,12 +109,12 @@ void schr4c_prep_map(const TSurface *srf, u16 *map, u16 se0)
 u32 *schr4c_get_ptr(const TSurface *srf, int x, int y)
 {
 	uint xx= x, yy= y;
-	return (u32*)(srf->data + yy*4 + xx/8*srf->pitch);	
+	return (u32*)(srf->data + yy*4 + xx/8*srf->pitch);
 }
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 //! Get the pixel value of \a src at (\a x, \a y).
@@ -178,7 +178,7 @@ void schr4c_hline(const TSurface *dst, int x1, int y, int x2, u32 clr)
 	{
 		*dstL= (*dstL &~ maskL) | (clr&maskL);
 		width -= 8-left;
-		dstL += dstP;	
+		dstL += dstP;
 	}
 
 	// Non-zero right edge. Note the right edge is at width/8*8
@@ -212,10 +212,10 @@ void schr4c_vline(const TSurface *dst, int x, int y1, int y2, u32 clr)
 {
 	// --- Normalize ---
 	if(y2<y1)	{	int tmp= y1; y1= y2; y2= tmp;	}
-	
+
 	u32 *dstL= schr4c_get_ptr(dst, x, y1);
 	uint height= y2-y1+1;
-	
+
 	uint shift= (x&7)*4;
 	u32 mask  = 15<<shift;
 	clr       = (clr&15)<<shift;
@@ -245,7 +245,7 @@ void schr4c_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 		// Adjust for inclusive ends
 		if(x2 == x1)
 		{	schr4c_plot(dst, x1, y1, clr);	return;	}
-		
+
 		schr4c_hline(dst, x1, y1, x2, clr);
 		return;
 	}
@@ -254,7 +254,7 @@ void schr4c_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 		// Adjust for inclusive ends
 		if(y2 == y1)
 		{	schr4c_plot(dst, x1, y1, clr);	return;	}
-		
+
 		schr4c_vline(dst, x1, y1, y2, clr);
 		return;
 	}
@@ -289,7 +289,7 @@ void schr4c_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 
 			dd += 2*dy;
 			x1 += xstep;
-		}				
+		}
 	}
 	else				// Diagonal, slope > 1
 	{
@@ -303,7 +303,7 @@ void schr4c_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 
 			dd += 2*dx;
 			y1 += ystep;
-		}		
+		}
 	}
 }
 
@@ -316,7 +316,7 @@ void schr4c_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 	\param bottom	Bottom side of rectangle.
 	\param clr		Color-index.
 */
-void schr4c_rect(const TSurface *dst, 
+void schr4c_rect(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr)
 {
 	if(left==right || top==bottom)
@@ -341,7 +341,7 @@ void schr4c_rect(const TSurface *dst,
 		{
 			//clr= octup(2);
 			right= min(x0+width, 8);
-			chr4c_colset(dstD, x0, right, height, clr);		
+			chr4c_colset(dstD, x0, right, height, clr);
 			width -= right-x0;
 			dstD += dstP;
 		}
@@ -352,7 +352,7 @@ void schr4c_rect(const TSurface *dst,
 			//clr= octup(4);
 			chr4c_colset(&dstD[width/8*dstP], 0, width&7, height, clr);
 			width &= ~7;
-		}					
+		}
 	}
 
 	// Center parts (if anything left)
@@ -379,7 +379,7 @@ void schr4c_rect(const TSurface *dst,
 	\note	Does normalization, but not bounds checks.
 	\note	PONDER: RB in- or exclusive?
 */
-void schr4c_frame(const TSurface *dst, 
+void schr4c_frame(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr)
 {
 	if(left==right || top==bottom)
@@ -414,7 +414,7 @@ void schr4c_frame(const TSurface *dst,
 	\param srcY		Top coord of rectangle on \a src.
 	\note			The rectangle will be clipped to both \a src and \a dst.
 */
-void schr4c_blit(const TSurface *dst, int dstX, int dstY, 
+void schr4c_blit(const TSurface *dst, int dstX, int dstY,
 	uint width, uint height, const TSurface *src, int srcX, int srcY)
 {
 	// Safety checks
@@ -452,7 +452,7 @@ void schr4c_blit(const TSurface *dst, int dstX, int dstY,
 	int srcX0= srcX&7, dstX0= dstX&7;
 	u32 mask;
 
-	// Simple cases : aligned pixels 
+	// Simple cases : aligned pixels
 	if( srcX0 == dstX0 )
 	{
 		// Left side / single column.
@@ -490,14 +490,14 @@ void schr4c_blit(const TSurface *dst, int dstX, int dstY,
 		}
 	}
 	// Hideous cases : srcX0 != dstX0
-	// NOTE: not exactly optimized, due to hairynes of the 
+	// NOTE: not exactly optimized, due to hairynes of the
 	//   subject.
 	else
 	{
 		int dx= dstX0 - srcX0;
 
 		// Normalize direction of shifts.
-		// NOTE: Could go outside VRAM, but they would be 
+		// NOTE: Could go outside VRAM, but they would be
 		//   no-ops. no$gba might complain though.
 		if(dx<0)
 		{
@@ -543,7 +543,7 @@ void schr4c_blit(const TSurface *dst, int dstX, int dstY,
 	\param x	X-coordinate.
 	\param y	Y-coordinate;
 	\param clr	Color.
-	\note		This routines is probably very, very slow. 
+	\note		This routines is probably very, very slow.
 */
 void schr4c_floodfill(const TSurface *dst, int x, int y, u32 clr)
 {
@@ -560,7 +560,7 @@ void schr4c_floodfill(const TSurface *dst, int x, int y, u32 clr)
 	\note	This traverses the lines horizontally. Amazingly, this
 		seems faster than vertically.
 */
-void schr4c_floodfill_internal(const TSurface *dst, int x, int y, 
+void schr4c_floodfill_internal(const TSurface *dst, int x, int y,
 	u32 clrNew, u32 clrOld)
 {
 	uint dstW= dst->width, dstH= dst->height;
@@ -576,13 +576,13 @@ void schr4c_floodfill_internal(const TSurface *dst, int x, int y,
 	// Recursive *ick*. All the stack-work's making GBA's head spin.
 	for(ii=left; ii<=right; ii++)
 	{
-		// clr-first check saves 
+		// clr-first check saves
 		if(_schr4c_get_pixel(dst, ii, y-1) == clrOld && y>0)
 			schr4c_floodfill_internal(dst, ii, y-1, clrNew, clrOld);
-		
+
 		if(_schr4c_get_pixel(dst, ii, y+1) == clrOld && y+1<dstH)
-			schr4c_floodfill_internal(dst, ii, y+1, clrNew, clrOld);		
-	}	
+			schr4c_floodfill_internal(dst, ii, y+1, clrNew, clrOld);
+	}
 }
 
 // EOF

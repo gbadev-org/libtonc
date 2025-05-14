@@ -6,7 +6,7 @@
 //! \date 20060508 - 20090801
 
 	.file	"tonc_bios_ex.s"
-	
+
 #include "tonc_asminc.h"
 
 @ === VBlankIntrDelay [05h] ===========================================
@@ -41,11 +41,11 @@ BEGIN_FUNC_THUMB(DivSafe, CSEC_TEXT)
 	asr		r0, r0, #31		@ r0= r0<0 ? -1 : 0
 	sub		r0, r1, r0
 	bx		lr
-END_FUNC(DivSafe)	
+END_FUNC(DivSafe)
 
 @ === Mod [06h] =======================================================
 @ DECL: int Mod(int num, int den);
-@ DESC: 
+@ DESC:
 BEGIN_FUNC_THUMB(Mod, CSEC_TEXT)
 	swi		0x06
 	mov		r0, r1
@@ -54,7 +54,7 @@ END_FUNC(Mod)
 
 @ === DivAbs [06h] ====================================================
 @ DECL: u32 DivAbs(int num, int den);
-@ DESC: 
+@ DESC:
 BEGIN_FUNC_THUMB(DivAbs, CSEC_TEXT)
 	swi		0x06
 	mov		r0, r3
@@ -63,7 +63,7 @@ END_FUNC(DivAbs)
 
 @ === DivArmMod [07h] =================================================
 @ DECL: int DivArmMod(int den, int num);
-@ DESC: 
+@ DESC:
 BEGIN_FUNC_THUMB(DivArmMod, CSEC_TEXT)
 	swi		0x07
 	mov		r0, r1
@@ -72,7 +72,7 @@ END_FUNC(DivArmMod)
 
 @ === DivArmAbs [07h] ====================================================
 @ DECL: u32 DivArmAbs(int den, int num);
-@ DESC: 
+@ DESC:
 BEGIN_FUNC_THUMB(DivArmAbs, CSEC_TEXT)
 	swi		0x07
 	mov		r0, r3
@@ -82,7 +82,7 @@ END_FUNC(DivArmAbs)
 
 @ === CpuFastFill [0Ch] ===============================================
 @ DECL: void CpuFastFill(u32 wd, void *dst, u32 count);
-@ DESC: 
+@ DESC:
 BEGIN_FUNC_THUMB(CpuFastFill, CSEC_TEXT)
 	push	{r0}			@ push wd on stack
 	mov		r0, #128

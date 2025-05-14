@@ -7,12 +7,12 @@
 //
 // === NOTES ===
 @ * 20050924: Lower overhead for all; reduced i-count for u16 loops.
-@ * These are 16/32bit memset and memcpy. The 32bit versions are in 
-@   iwram for maximum effect and pretty much do what CpuFastSet does, 
-@   except that it'll work for non multiples of 8 words too. Speed 
+@ * These are 16/32bit memset and memcpy. The 32bit versions are in
+@   iwram for maximum effect and pretty much do what CpuFastSet does,
+@   except that it'll work for non multiples of 8 words too. Speed
 @   is as good as CpuFastSet, but with a little less overhead.
-@ * The 16bit versions call the 32bit ones if possible and/or desirable. 
-@   They are thumb/ROM functions but did them in asm anyway because 
+@ * The 16bit versions call the 32bit ones if possible and/or desirable.
+@   They are thumb/ROM functions but did them in asm anyway because
 @   GCC goes haywire with the use of registers resulting in a much
 @   higher overhead (i.e., detrimental for low counts)
 @ * Crossover with inline while(nn--) loops (not for(ii++), which are
@@ -46,7 +46,7 @@ BEGIN_FUNC_ARM(memcpy32, CSEC_IWRAM)
 	push	{r4-r10}
 	@ copy 32byte chunks with 8fold xxmia
 .Lmain_cpy32:
-		ldmia	r1!, {r3-r10}	
+		ldmia	r1!, {r3-r10}
 		stmia	r0!, {r3-r10}
 		subs	r2, r2, #1
 		bhi		.Lmain_cpy32
@@ -63,7 +63,7 @@ END_FUNC(memcpy32)
 @ === void memcpy16(void *dst, const void *src, u32 hwn); =============
 /*! \fn void memcpy16(void *dst, const void *src, u32 hwn);
     \brief Copy for halfwords.
-	Uses <code>memcpy32()</code> if \a hwn>6 and 
+	Uses <code>memcpy32()</code> if \a hwn>6 and
 	  \a src and \a dst are aligned equally.
 	\param dst Destination address.
 	\param src Source address.
@@ -103,7 +103,7 @@ BEGIN_FUNC_THUMB(memcpy16, CSEC_TEXT)
 	lsr		r2, r2, #1
 	ldr		r3, =memcpy32
 	bl		.Llong_bl
-	@ NOTE: r0,r1 are altered by memcpy32, but in exactly the right 
+	@ NOTE: r0,r1 are altered by memcpy32, but in exactly the right
 	@ way, so we can use them as is.
 	lsr		r2, r4, #31
 	beq		.Lend_cpy16

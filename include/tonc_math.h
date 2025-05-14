@@ -74,14 +74,14 @@
 #ifndef MAX
 
 //! Get the maximum of \a a and \a b
-#define MAX(a, b)  ( ((a) > (b)) ? (a) : (b) ) 
+#define MAX(a, b)  ( ((a) > (b)) ? (a) : (b) )
 
 //! Get the minimum of \a a and \a b
 #define MIN(a, b)  ( ((a) < (b)) ? (a) : (b) )
 #endif	// MAX
 
 #ifndef SWAP
-//! In-place swap. 
+//! In-place swap.
 #define SWAP2(a, b)	do { a=(a)-(b); b=(a)+(b); a=(b)-(a); } while(0)
 
 #define SWAP	SWAP2
@@ -117,9 +117,9 @@ INLINE int min(int a, int b);
 	( (x)>=(max) ? ((max)-1) : ( ((x)<(min)) ? (min) : (x) ) )
 
 //! Reflects \a x at boundaries \a min and \a max
-/*! If \a x is outside the range [\a min, \a max>, 
-*	  it'll be placed inside again with the same distance 
-*	  to the 'wall', but on the other side. Example for lower 
+/*! If \a x is outside the range [\a min, \a max>,
+*	  it'll be placed inside again with the same distance
+*	  to the 'wall', but on the other side. Example for lower
 *	  border: y = \a min - (\a x- \a min)  = 2*\a min + \a x.
 *	\return	Reflected value of \a x.
 *	\note	\a max is exclusive!
@@ -143,7 +143,7 @@ INLINE int wrap(int x, int min, int max);
 
 
 // --------------------------------------------------------------------
-//   FIXED POINT 
+//   FIXED POINT
 // --------------------------------------------------------------------
 
 
@@ -162,33 +162,33 @@ INLINE int wrap(int x, int min, int max);
 /*!
 *	\param a	Value to take the reciprocal of.
 *	\param fp	Number of fixed point bits
-*	\note	The routine does do a division, but the compiler will 
-*	  optimize it to a single constant ... \e if both \a a and \a fp 
+*	\note	The routine does do a division, but the compiler will
+*	  optimize it to a single constant ... \e if both \a a and \a fp
 *	  are constants!
 *	\sa	#FX_RECIMUL
 */
 #define FX_RECIPROCAL(a, fp)	( ((1<<(fp))+(a)-1)/(a) )
 
 //! Perform the division \a x/ \a a by reciprocal multiplication
-/*! Division is slow, but you can approximate division by a constant 
+/*! Division is slow, but you can approximate division by a constant
 *	by multiplying with its reciprocal: x/a vs x*(1/a). This routine
 *	gives the reciprocal of \a a as a fixed point number with \a fp
 *	fractional bits.
 *	\param a	Value to take the reciprocal of.
 *	\param fp	Number of fixed point bits
-*	\note	The routine does do a division, but the compiler will 
-*	  optimize it to a single constant ... \e if both \a a and \a fp 
+*	\note	The routine does do a division, but the compiler will
+*	  optimize it to a single constant ... \e if both \a a and \a fp
 *	  are constants!
-*	\note	Rules for safe reciprocal division, using 
+*	\note	Rules for safe reciprocal division, using
 *	  n = 2<sup>fp</sup> and m = (n+a-1)/a (i.e., rounding up)
 *	  \li	Maximum safe numerator \a x:	x < n/(m*a-n)
-*	  \li	Minimum n for known \a x:		n > x*(a-1)	
+*	  \li	Minimum n for known \a x:		n > x*(a-1)
 */
 #define FX_RECIMUL(x, a, fp)	( ((x)*((1<<(fp))+(a)-1)/(a))>>(fp) )
 
 INLINE FIXED int2fx(int d);
 INLINE FIXED float2fx(float f);
-INLINE u32 fx2uint(FIXED fx);	
+INLINE u32 fx2uint(FIXED fx);
 INLINE u32 fx2ufrac(FIXED fx);
 INLINE int fx2int(FIXED fx);
 INLINE float fx2float(FIXED fx);
@@ -258,10 +258,10 @@ int pt_in_rect(const POINT *pt, const struct RECT *rc);
 /*!	\{	*/
 
 //! Rectangle struct
-typedef struct RECT    
+typedef struct RECT
 {
 	int left, top;
-	int right, bottom; 
+	int right, bottom;
 } RECT, RECT32;
 
 INLINE RECT *rc_set(RECT *rc, int l, int t, int r, int b);
@@ -340,9 +340,9 @@ INLINE int clamp(int x, int min, int max)
 {	return (x>=max) ? (max-1) : ( (x<min) ? min : x );	}
 
 //! Reflects \a x at boundaries \a min and \a max
-/*! If \a x is outside the range [\a min, \a max>, 
-*	  it'll be placed inside again with the same distance 
-*	  to the 'wall', but on the other side. Example for lower 
+/*! If \a x is outside the range [\a min, \a max>,
+*	  it'll be placed inside again with the same distance
+*	  to the 'wall', but on the other side. Example for lower
 *	  border: y = \a min - (\a x- \a min)  = 2*\a min + \a x.
 *	\return	Reflected value of \a x.
 *	\note	\a max is exclusive!
@@ -368,7 +368,7 @@ INLINE FIXED float2fx(float f)
 
 
 //! Convert a FIXED point value to an unsigned integer (orly?).
-INLINE u32 fx2uint(FIXED fx)	
+INLINE u32 fx2uint(FIXED fx)
 {	return fx>>FIX_SHIFT;	}
 
 //! Get the unsigned fractional part of a fixed point value (orly?).
@@ -437,7 +437,7 @@ INLINE uint lu_div(uint x)
 
 //! Linear interpolator for 32bit LUTs.
 /*! A lut is essentially the discrete form of a function, f(<i>x</i>).
-*	You can get values for non-integer \e x via (linear) 
+*	You can get values for non-integer \e x via (linear)
 *	interpolation between f(x) and f(x+1).
 *	\param lut	The LUT to interpolate from.
 *	\param x	Fixed point number to interpolate at.
@@ -457,7 +457,7 @@ INLINE int lu_lerp16(const s16 lut[], uint x, const uint shift)
 	int xa, ya, yb;
 	xa=x>>shift;
 	ya= lut[xa]; yb= lut[xa+1];
-	return ya + ( (yb-ya)*(x-(xa<<shift))>>shift );	
+	return ya + ( (yb-ya)*(x-(xa<<shift))>>shift );
 }
 
 
@@ -473,7 +473,7 @@ INLINE POINT *pt_set(POINT *pd, int x, int y)
 //! Point addition: \a pd = \a pa + \a pb
 INLINE POINT *pt_add(POINT *pd, const POINT *pa, const POINT *pb)
 {
-	pd->x= pa->x + pb->x;	
+	pd->x= pa->x + pb->x;
 	pd->y= pa->x + pb->y;
 	return pd;
 }
@@ -481,46 +481,46 @@ INLINE POINT *pt_add(POINT *pd, const POINT *pa, const POINT *pb)
 //! Point subtraction: \a pd = \a pa - \a pb
 INLINE POINT *pt_sub(POINT *pd, const POINT *pa, const POINT *pb)
 {
-	pd->x= pa->x - pb->x;	
+	pd->x= pa->x - pb->x;
 	pd->y= pa->x - pb->y;
 	return pd;
 }
 
-//! Point scale: \a pd = \a c * \a pa 
+//! Point scale: \a pd = \a c * \a pa
 INLINE POINT *pt_scale(POINT *pd, const POINT *pa, int c)
-{	
-	pd->x= pa->x*c;	
-	pd->y= pa->y*c;	
+{
+	pd->x= pa->x*c;
+	pd->y= pa->y*c;
 	return pd;
 }
 
 //! Point  increment: \a pd += \a pb
 INLINE POINT *pt_add_eq(POINT *pd, const POINT *pb)
-{	
-	pd->x += pb->y;	
-	pd->y += pb->y;	
-	return pd;	
+{
+	pd->x += pb->y;
+	pd->y += pb->y;
+	return pd;
 }
 
 //! Point decrement: \a pd -= \a pb
 INLINE POINT *pt_sub_eq(POINT *pd, const POINT *pb)
-{	
-	pd->x -= pb->y;	
-	pd->y -= pb->y;	
-	return pd;	
+{
+	pd->x -= pb->y;
+	pd->y -= pb->y;
+	return pd;
 }
 
 //! Point scale: \a pd *= \a c
 INLINE POINT *pt_scale_eq(POINT *pd, int c)
-{	
-	pd->x *= c;		
-	pd->y *= c;		
-	return pd;	
+{
+	pd->x *= c;
+	pd->y *= c;
+	return pd;
 }
 
 //! Point 'cross'-product: \a pa \htmlonly &times; \endhtmlonly \a pb
-/*! Actually, there's no such thing as a 2D cross-product, but you could 
-*	  extend it to 3D and get the value of its <i>z</i>-component, 
+/*! Actually, there's no such thing as a 2D cross-product, but you could
+*	  extend it to 3D and get the value of its <i>z</i>-component,
 *	  which can be used for a test for parallelism.
 */
 INLINE int pt_cross(const POINT *pa, const POINT *pb)
@@ -592,16 +592,16 @@ INLINE RECT *rc_move(RECT *rc, int dx, int dy)
 
 //! Increase size by \a dw horizontally and \a dh vertically.
 INLINE RECT *rc_inflate(RECT *rc, int dw, int dh)
-{	
-	rc->left -= dw;		rc->top -= dh;	
+{
+	rc->left -= dw;		rc->top -= dh;
 	rc->right += dw;	rc->bottom += dh;
 	return rc;
 }
 
 //! Increase sizes on all sides by values of rectangle \a dr.
 INLINE RECT *rc_inflate2(RECT *rc, const RECT *dr)
-{	
-	rc->left += dr->left;	rc->top += dr->top;	
+{
+	rc->left += dr->left;	rc->top += dr->top;
 	rc->right += dr->right;	rc->bottom += dr->bottom;
 	return rc;
 }
@@ -654,7 +654,7 @@ INLINE VECTOR *vec_scale(VECTOR *vd, const VECTOR *va, FIXED c)
 
 //! Dot-product: d = \b a ·\b b
 INLINE FIXED vec_dot(const VECTOR *va, const VECTOR *vb)
-{	
+{
 	FIXED dot;
 	dot  = fxmul(va->x, vb->x);
 	dot += fxmul(va->y, vb->y);

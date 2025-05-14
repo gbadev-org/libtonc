@@ -49,7 +49,7 @@ void obj_unhide_multi(OBJ_ATTR *obj, u16 mode, uint count);
 // --- Obj affine only ---
 void obj_aff_copy(OBJ_AFFINE *dst, const OBJ_AFFINE *src, uint count);
 
-INLINE void obj_aff_set(OBJ_AFFINE *oaff, 
+INLINE void obj_aff_set(OBJ_AFFINE *oaff,
 	FIXED pa, FIXED pb, FIXED pc, FIXED pd);
 INLINE void obj_aff_identity(OBJ_AFFINE *oaff);
 INLINE void obj_aff_scale(OBJ_AFFINE *oaff, FIXED sx, FIXED sy);
@@ -121,7 +121,7 @@ INLINE const u8 *obj_get_size(const OBJ_ATTR *obj)
 //! Get object's width
 INLINE int obj_get_width(const OBJ_ATTR *obj)
 {	return obj_get_size(obj)[0];						}
-	
+
 //! Gets object's height
 INLINE int obj_get_height(const OBJ_ATTR *obj)
 {	return obj_get_size(obj)[1];						}
@@ -131,7 +131,7 @@ INLINE int obj_get_height(const OBJ_ATTR *obj)
 
 
 //! Set the elements of an \a object affine matrix.
-INLINE void obj_aff_set(OBJ_AFFINE *oaff, 
+INLINE void obj_aff_set(OBJ_AFFINE *oaff,
 	FIXED pa, FIXED pb, FIXED pc, FIXED pd)
 {
 	oaff->pa= pa;	oaff->pb= pb;

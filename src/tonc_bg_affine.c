@@ -16,12 +16,12 @@
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 
 //! Set bg matrix to counter-clockwise rotation.
-/*! 
+/*!
 	\param bgaff	Object affine struct to set.
 	\param alpha	CCW angle. full-circle is 10000h.
 */
@@ -34,7 +34,7 @@ void bg_aff_rotate(BG_AFFINE *bgaff, u16 alpha)
 }
 
 //! Set bg matrix to 2d scaling, then counter-clockwise rotation.
-/*! 
+/*!
 	\param bgaff	Object affine struct to set.
 	\param sx	Horizontal scale (zoom). .8 fixed point.
 	\param sy	Vertical scale (zoom). .8 fixed point.
@@ -45,7 +45,7 @@ void bg_aff_rotscale(BG_AFFINE *bgaff, int sx, int sy, u16 alpha)
 	int ss= lu_sin(alpha), cc= lu_cos(alpha);
 
 	bgaff->pa= cc*sx>>12;	bgaff->pb=-ss*sx>>12;
-	bgaff->pc= ss*sy>>12;	bgaff->pd= cc*sy>>12;	
+	bgaff->pc= ss*sy>>12;	bgaff->pd= cc*sy>>12;
 }
 
 //! Pre-multiply \a dst by \a src: D = S*D
@@ -75,7 +75,7 @@ void bg_aff_postmul(BG_AFFINE *dst, const BG_AFFINE *src)
 }
 
 //! Set bg matrix to 2d scaling, then counter-clockwise rotation.
-/*! 
+/*!
 	\param bgaff	Object affine struct to set.
 	\param as Struct with scales and angle.
 */
@@ -84,13 +84,13 @@ void bg_aff_rotscale2(BG_AFFINE *bgaff, const AFF_SRC *as)
 	int ss= lu_sin(as->alpha), cc= lu_cos(as->alpha);
 
 	bgaff->pa= cc*as->sx>>12;	bgaff->pb=-ss*as->sx>>12;
-	bgaff->pc= ss*as->sy>>12;	bgaff->pd= cc*as->sy>>12;	
+	bgaff->pc= ss*as->sy>>12;	bgaff->pd= cc*as->sy>>12;
 }
 
 //! Set bg affine matrix to a rot/scale around an arbitrary point.
 /*! Rotate and scale round an arbitrary point using the \a asx data.
 	\param bgaff	BG affine data to set.
-	\param asx	Affine source data: screen and texture origins, 
+	\param asx	Affine source data: screen and texture origins,
 	  scales and angle.
 */
 void bg_rotscale_ex(BG_AFFINE *bgaff, const AFF_SRC_EX *asx)
@@ -101,7 +101,7 @@ void bg_rotscale_ex(BG_AFFINE *bgaff, const AFF_SRC_EX *asx)
 	FIXED pa, pb, pc, pd;
 	pa=  sx*cosa>>12;	pb=-sx*sina>>12;	// .8f
 	pc=  sy*sina>>12;	pd= sy*cosa>>12;	// .8f
-	
+
 	bgaff->pa= pa;	bgaff->pb= pb;
 	bgaff->pc= pc;	bgaff->pd= pd;
 

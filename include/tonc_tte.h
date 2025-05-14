@@ -6,7 +6,7 @@
 //! \date 20070517 - 20080503
 //
 /* === NOTES ===
-  * 20080503: WARNING : added the 'heights' field to TFont. All 
+  * 20080503: WARNING : added the 'heights' field to TFont. All
     older fonts should be updated for the change.
   * 20080225: tte_get_context() calls are optimized out. I checked.
 	After a function call all bets are off, of course.
@@ -26,10 +26,10 @@
 /*! \addtogroup grpTTE
 	\brief	A generalized raster text system.
 
-	As of v1.3, Tonc has a completely new way of handling text. It can 
-	handle (practically) all modes, VRAM types and font sizes and brings 
-	them together under a unified interface. It uses function pointers to 
-	store \e drawg and \e erase functions of each rendering family. The 
+	As of v1.3, Tonc has a completely new way of handling text. It can
+	handle (practically) all modes, VRAM types and font sizes and brings
+	them together under a unified interface. It uses function pointers to
+	store \e drawg and \e erase functions of each rendering family. The
 	families currently supported are:
 
 	- <b>ase</b>:	Affine screen entries (Affine tiled BG)
@@ -40,9 +40,9 @@
 	- <b>obj</b>	Objects
 	- <b>se</b>		Regular screen entries (Regular tiled BG)
 
-	Each of these consists of an initializer, \c tte_init_foo, and 
-	one or more glyph rendering functions, \c foo_puts_bar, The \c bar 
-	part of the renderer denotes the style of the particular renderer, 
+	Each of these consists of an initializer, \c tte_init_foo, and
+	one or more glyph rendering functions, \c foo_puts_bar, The \c bar
+	part of the renderer denotes the style of the particular renderer,
 	which can indicate:
 
 		- Expected bitdepth of font data (\c b1 for 1bpp, etc)
@@ -51,19 +51,19 @@
 		- Transparent or opaque background pixels (\c t or \c o ).
 		- Whether the font-data is in 'strip' layout (\c s )
 
-	The included renderers here are usually transparent, 
-	recolored, using 1bpp strip glyphs (\c _b1cts ). The initializer 
-	takes a bunch of options specific to each family, as well as font 
-	and renderer pointers. You can provide your own font and renderers, 
-	provided they're formatted correcty. For the default font/renderers, 
+	The included renderers here are usually transparent,
+	recolored, using 1bpp strip glyphs (\c _b1cts ). The initializer
+	takes a bunch of options specific to each family, as well as font
+	and renderer pointers. You can provide your own font and renderers,
+	provided they're formatted correcty. For the default font/renderers,
 	use \c NULL.<br>
 
-	After the calling the initializer, you can write utf-8 encoded text 
-	with tte_write() or tte_write_ex(). You can also enable stdio-related 
+	After the calling the initializer, you can write utf-8 encoded text
+	with tte_write() or tte_write_ex(). You can also enable stdio-related
 	functions by calling tte_init_con().<br>
 
-	The system also supposed rudimentary scripting for positions, colors, 
-	margins and erases. See tte_cmd_default() and con_cmd_parse() for 
+	The system also supposed rudimentary scripting for positions, colors,
+	margins and erases. See tte_cmd_default() and con_cmd_parse() for
 	details.
 	\sa	grpSurface
 */
@@ -73,8 +73,8 @@
 	\ingroup grpTTE
 	\brief	Basic operations.
 
-	This covers most of the things you can actually use TTE for, 
-	like writing the text, getting information about a glyph and setting 
+	This covers most of the things you can actually use TTE for,
+	like writing the text, getting information about a glyph and setting
 	color attributes.
 */
 
@@ -87,19 +87,19 @@
 	\ingroup grpTTE
 	\brief	Stdio functionality.
 
-	These functions allow you to use stdio routines for writing, like 
-	printf, puts and such. Note that tte_printf is just iprintf ... 
+	These functions allow you to use stdio routines for writing, like
+	printf, puts and such. Note that tte_printf is just iprintf ...
 	at least for now.
 */
 
 /*! \defgroup grpTTEMap Tilemap text
 	\ingroup grpTTE
-	\brief	Text for regular and affine tilemaps. 
-	
-	The tilemap sub-system loads the tiles into memory first, then 
-	writes to the map to show the letters. For this to work properly, 
+	\brief	Text for regular and affine tilemaps.
+
+	The tilemap sub-system loads the tiles into memory first, then
+	writes to the map to show the letters. For this to work properly,
 	the glyph sizes should be 8-pixel aligned.
-	\note	At present, the regular tilemap text ignores screenblock 
+	\note	At present, the regular tilemap text ignores screenblock
 		boundaries, so 512px wide maps may not work properly.
 */
 
@@ -107,9 +107,9 @@
 	\ingroup grpTTE
 	\brief	Text on surface composed of 4bpp tiles, mapped in column-major order.
 
-	There are actually two \e chr4 systems. The difference 
-	between the two is the ordering of the tiles: column-major 
-	versus row-major. Since column-major is 'better', this is 
+	There are actually two \e chr4 systems. The difference
+	between the two is the ordering of the tiles: column-major
+	versus row-major. Since column-major is 'better', this is
 	considered the primary sub-system for tiled text.
 	\sa grpSchr4c
 */
@@ -118,17 +118,17 @@
 	\ingroup grpTTE
 	\brief	Text on surface composed of 4bpp tiles, mapped in row-major order.
 
-	There are actually two \e chr4 systems, with row-major and 
-	column-major tile indexing. The column-major version is more 
+	There are actually two \e chr4 systems, with row-major and
+	column-major tile indexing. The column-major version is more
 	advanced, so use that when possible.
 	\sa grpSchr4r
 */
 
 /*! \defgroup grpTTEBmp Bitmap text
 	\ingroup grpTTE
-	\brief	Text for 16bpp and 8bpp bitmap surfaces: modes 3, 4 and 5. 
+	\brief	Text for 16bpp and 8bpp bitmap surfaces: modes 3, 4 and 5.
 
-	Note that TTE does not update the pointer of the surface for 
+	Note that TTE does not update the pointer of the surface for
 	page-flipping. You'll have to do that yourself.
 */
 
@@ -136,13 +136,13 @@
 	\ingroup grpTTE
 	\brief	Text using objects.
 
-	This is similar to tilemaps, in that the glyphs are loaded into 
-	object VRAM first and pointed to by the objects. Unlike tilemaps, 
-	though, variable-width fonts are possible here. The members of 
-	the surface member are used a little differently here, though. 
-	the <code>pitch</code> is used as an index to the current 
-	object, and <code>width</code> is the number of objects allowed 
-	to be used for text. 
+	This is similar to tilemaps, in that the glyphs are loaded into
+	object VRAM first and pointed to by the objects. Unlike tilemaps,
+	though, variable-width fonts are possible here. The members of
+	the surface member are used a little differently here, though.
+	the <code>pitch</code> is used as an index to the current
+	object, and <code>width</code> is the number of objects allowed
+	to be used for text.
 */
 
 
@@ -169,7 +169,7 @@
 // --------------------------------------------------------------------
 
 //! \name drawg helper macros
-/*! Each \c drawg renderer usually starts with the same thing: 
+/*! Each \c drawg renderer usually starts with the same thing:
 	- Get the system and font pointers.
 	- Translate from ascii-character to glyph offset.
 	- Get the glyph (and glyph-cell) dimensions.
@@ -220,11 +220,11 @@
 
 #define tte_init_se_default(bgnr, bgcnt)								\
 	tte_init_se( bgnr, bgcnt, 0xF000, CLR_YELLOW, 0, &fwf_default, NULL)
-		
+
 #define tte_init_ase_default(bgnr, bgcnt)								\
 	tte_init_ase(bgnr, bgcnt, 0x0000, CLR_YELLOW, 0, &fwf_default, NULL)
 
-		
+
 #define tte_init_chr4c_default(bgnr, bgcnt)								\
 	tte_init_chr4c(bgnr, bgcnt, 0xF000, 0x0201, CLR_ORANGE<<16|CLR_YELLOW,	\
 		&vwf_default, NULL)
@@ -264,15 +264,15 @@ typedef void (*fnErase)(int left, int top, int right, int bottom);
 //! Font description struct.
 /*!	The \c TFont contains a description of the font, including pointers
 	to the glyph data and width data (for VWF fonts), an ascii-offset
-	for when the first glyph isn't for ascii-null (which is likely. 
+	for when the first glyph isn't for ascii-null (which is likely.
 	Usually it starts at ' ' (32)).<br>
-	The font-bitmap is a stack of cells, each containing one glyph 
-	each. The cells and characters need not be the same size, but 
+	The font-bitmap is a stack of cells, each containing one glyph
+	each. The cells and characters need not be the same size, but
 	the character glyph must fit within the cell.<br>
 
-	The formatting of the glyphs themselves should fit the rendering 
-	procedure. The default renderers use 1bpp 8x8 tiled graphics, 
-	where for multi-tiled cells the tiles are in a <b>vertical</b> 
+	The formatting of the glyphs themselves should fit the rendering
+	procedure. The default renderers use 1bpp 8x8 tiled graphics,
+	where for multi-tiled cells the tiles are in a <b>vertical</b>
 	'strip' format. In an 16x16 cell, the 4 tiles would be arranged as:
 
 	<table border=1 cellpadding=2 cellspacing=0>
@@ -293,7 +293,7 @@ typedef struct TFont
 	u8	cellH;				//!< Glyph cell height.
 	u16	cellSize;			//!< Cell-size (bytes).
 	u8	bpp;				//!< Font bitdepth;
-	u8	extra;				//!< Padding. Free to use.	
+	u8	extra;				//!< Padding. Free to use.
 } TFont;
 
 
@@ -484,7 +484,7 @@ ssize_t tte_con_nocash(struct _reent *r, void *fd, const char *text, size_t len)
 
 //! \name Regular tilemaps
 //\{
-void tte_init_se(int bgnr, u16 bgcnt, SCR_ENTRY se0, u32 clrs, u32 bupofs, 
+void tte_init_se(int bgnr, u16 bgcnt, SCR_ENTRY se0, u32 clrs, u32 bupofs,
 	const TFont *font, fnDrawg proc);
 
 void se_erase(int left, int top, int right, int bottom);
@@ -497,7 +497,7 @@ void se_drawg_s(uint gid);
 
 //! \name Affine tilemaps
 //\{
-void tte_init_ase(int bgnr, u16 bgcnt, u8 ase0, u32 clrs, u32 bupofs, 
+void tte_init_ase(int bgnr, u16 bgcnt, u8 ase0, u32 clrs, u32 bupofs,
 	const TFont *font, fnDrawg proc);
 
 void ase_erase(int left, int top, int right, int bottom);
@@ -516,7 +516,7 @@ void ase_drawg_s(uint gid);
 
 //! \name 4bpp tiles
 //\{
-void tte_init_chr4c(int bgnr, u16 bgcnt, u16 se0, u32 cattrs, u32 clrs, 
+void tte_init_chr4c(int bgnr, u16 bgcnt, u16 se0, u32 cattrs, u32 clrs,
 	const TFont *font, fnDrawg proc);
 
 void chr4c_erase(int left, int top, int right, int bottom);
@@ -539,7 +539,7 @@ IWRAM_CODE void chr4c_drawg_b4cts_fast(uint gid);
 
 //! \name 4bpp tiles
 //\{
-void tte_init_chr4r(int bgnr, u16 bgcnt, u16 se0, u32 cattrs, u32 clrs, 
+void tte_init_chr4r(int bgnr, u16 bgcnt, u16 se0, u32 cattrs, u32 clrs,
 	const TFont *font, fnDrawg proc);
 
 void chr4r_erase(int left, int top, int right, int bottom);
@@ -586,7 +586,7 @@ void bmp16_drawg_b1cos(uint gid);
 /*! \addtogroup grpTTEObj		*/
 /*	\{	*/
 
-void tte_init_obj(OBJ_ATTR *dst, u32 attr0, u32 attr1, u32 attr2, 
+void tte_init_obj(OBJ_ATTR *dst, u32 attr0, u32 attr1, u32 attr2,
 	u32 clrs, u32 bupofs, const TFont *font, fnDrawg proc);
 
 void obj_erase(int left, int top, int right, int bottom);
@@ -609,7 +609,7 @@ INLINE TTC *tte_get_context(void)
 
 //! Get the glyph index of character \a ch.
 INLINE uint tte_get_glyph_id(int ch)
-{	
+{
 	TTC *tc= tte_get_context();
 	ch -= tc->font->charOffset;
 	return tc->charLut ? tc->charLut[ch] : ch;
@@ -653,7 +653,7 @@ INLINE TSurface *tte_get_surface()
 
 //! Set cursor position
 INLINE void tte_set_pos(int x, int y)
-{	
+{
 	tte_get_context()->cursorX= x;
 	tte_get_context()->cursorY= y;
 }
@@ -662,7 +662,7 @@ INLINE void tte_set_pos(int x, int y)
 INLINE void tte_get_pos(int *x, int *y)
 {
 	if(x)	*x= tte_get_context()->cursorX;
-	if(y)	*y= tte_get_context()->cursorY;	
+	if(y)	*y= tte_get_context()->cursorY;
 }
 
 

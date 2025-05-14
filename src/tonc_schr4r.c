@@ -14,19 +14,19 @@
 
 
 // --------------------------------------------------------------------
-// PROTOTYPES 
+// PROTOTYPES
 // --------------------------------------------------------------------
 
 
 INLINE u32 chr4_lmask(uint left);
 INLINE u32 chr4_rmask(uint right);
 INLINE void chr4r_plot(int x, int y, u32 clr, void *dstBase, u32 dstP);
-INLINE void chr4r_colset(u32 *dstD, uint dstP4, 
+INLINE void chr4r_colset(u32 *dstD, uint dstP4,
 	uint left, uint right, uint height, u32 clr);
 
 
 // --------------------------------------------------------------------
-// HELPERS 
+// HELPERS
 // --------------------------------------------------------------------
 
 //! Returns the clear-mask for the left side of a fill rect.
@@ -55,7 +55,7 @@ INLINE void chr4r_plot(int x, int y, u32 clr, void *dstBase, u32 dstP)
 /*!
 	\note	\a left and \a right must already be between 0 and 8.
 */
-INLINE void chr4r_colset(u32 *dstD, uint dstP4, 
+INLINE void chr4r_colset(u32 *dstD, uint dstP4,
 	uint left, uint right, uint height, u32 clr)
 {
 	u32 mask= chr4_lmask(left) & chr4_rmask(right);
@@ -71,7 +71,7 @@ INLINE void chr4r_colset(u32 *dstD, uint dstP4,
 }
 
 //! Prepare a screen-entry map for use with chr4.
-/*!	
+/*!
 	\param srf	Surface with size information.
 	\param map	Screen-blocked map to initialize.
 	\param se0	Additive base screen-entry.
@@ -91,12 +91,12 @@ void schr4r_prep_map(const TSurface *srf, u16 *map, u16 se0)
 u32 *schr4r_get_ptr(const TSurface *srf, int x, int y)
 {
 	uint xx= x, yy= y;
-	return (u32*)(srf->data+yy/8*srf->pitch + yy%8*4 + xx/8*32);	
+	return (u32*)(srf->data+yy/8*srf->pitch + yy%8*4 + xx/8*32);
 }
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 
@@ -162,7 +162,7 @@ void schr4r_hline(const TSurface *dst, int x1, int y, int x2, u32 clr)
 	{
 		*dstD= (*dstD &~ maskL) | (clr&maskL);
 		width -= 8-left;
-		dstD += 8;	
+		dstD += 8;
 	}
 
 	// Non-zero right edge. Note the right edge is at width/8*8
@@ -195,11 +195,11 @@ void schr4r_vline(const TSurface *dst, int x, int y1, int y2, u32 clr)
 {
 	// --- Normalize ---
 	if(y2<y1)	{	int tmp= y1; y1= y2; y2= tmp;	}
-	
+
 	u32 *dstL= schr4r_get_ptr(dst, x, y1);
 	uint dstP= dst->pitch/4;
 	uint height= y2-y1+1;
-	
+
 	uint shift= (x&7)*4;
 	u32 mask  = 15<<shift;
 	clr       = (clr&15)<<shift;
@@ -208,7 +208,7 @@ void schr4r_vline(const TSurface *dst, int x, int y1, int y2, u32 clr)
 	{
 		*dstL= (*dstL &~ mask) | clr;
 		dstL++;
-		
+
 		if( ((u32)dstL)%32 == 0)
 			dstL += dstP-8;
 	}
@@ -233,7 +233,7 @@ void schr4r_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 		// Adjust for inclusive ends
 		if(x2 == x1)
 		{	schr4r_plot(dst, x1, y1, clr);	return;	}
-		
+
 		schr4r_hline(dst, x1, y1, x2, clr);
 		return;
 	}
@@ -242,7 +242,7 @@ void schr4r_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 		// Adjust for inclusive ends
 		if(y2 == y1)
 		{	schr4r_plot(dst, x1, y1, clr);	return;	}
-		
+
 		schr4r_vline(dst, x1, y1, y2, clr);
 		return;
 	}
@@ -277,7 +277,7 @@ void schr4r_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 
 			dd += 2*dy;
 			x1 += xstep;
-		}				
+		}
 	}
 	else				// Diagonal, slope > 1
 	{
@@ -291,7 +291,7 @@ void schr4r_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 
 			dd += 2*dx;
 			y1 += ystep;
-		}		
+		}
 	}
 }
 
@@ -304,7 +304,7 @@ void schr4r_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 	\param bottom	Bottom side of rectangle.
 	\param clr		Color-index. Octupled if > 16.
 	\note	For a routine like this you can strive for programmer sanity
-		or speed. This is for speed. Except for very small rects, this 
+		or speed. This is for speed. Except for very small rects, this
 		is between 5x and 300x faster than the trivial version.
 	Here's how it works:
 	   | c |
@@ -313,7 +313,7 @@ void schr4r_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 	   +---+
 	   | e |
 
-	Boundaries are tile-boundaries; 
+	Boundaries are tile-boundaries;
 	- If unaligned left : draw A [left,8), update dstD/width
 	- If unaligned right: draw B [right&~7,right), Adjust dstD/width
 	- If width>0
@@ -321,7 +321,7 @@ void schr4r_line(const TSurface *dst, int x1, int y1, int x2, int y2, u32 clr)
 	  - If height>8 : draw D in memset32 blocks, adjust height
 	  - Final sets : draw E in ix/iy loop
 */
-void schr4r_rect(const TSurface *dst, 
+void schr4r_rect(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr)
 {
 	if(left==right || top==bottom)
@@ -359,7 +359,7 @@ void schr4r_rect(const TSurface *dst,
 	if(x0+width <= 8)
 	{
 		//clr= octup(2);
-		chr4r_colset(dstD, dstP/4, x0, x0+width, height, clr);		
+		chr4r_colset(dstD, dstP/4, x0, x0+width, height, clr);
 		return;
 	}
 
@@ -384,7 +384,7 @@ void schr4r_rect(const TSurface *dst,
 	// Check if we're done (narrow rects)
 	if(width==0)
 		return;
-	
+
 	uint ix, iy;
 	uint y0= top&7;
 
@@ -408,7 +408,7 @@ void schr4r_rect(const TSurface *dst,
 	{
 		//clr= octup(6);
 		memset32(dstD, clr, width);
-		dstD += dstP/4;		
+		dstD += dstP/4;
 	}
 
 	height &= 7;
@@ -434,7 +434,7 @@ void schr4r_rect(const TSurface *dst,
 	\note	Does normalization, but not bounds checks.
 	\note	PONDER: RB in- or exclusive?
 */
-void schr4r_frame(const TSurface *dst, 
+void schr4r_frame(const TSurface *dst,
 	int left, int top, int right, int bottom, u32 clr)
 {
 	if(left==right || top==bottom)

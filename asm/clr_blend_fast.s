@@ -12,7 +12,7 @@
 #endif
 
 /*
-void clr_blend_fast(COLOR *srca, COLOR *srcb, COLOR *dst, 
+void clr_blend_fast(COLOR *srca, COLOR *srcb, COLOR *dst,
 	int nclrs, u32 alpha) IWRAM_CODE;
 */
 //!	Blends color arrays \a srca and \a srcb into \a dst.
@@ -22,7 +22,7 @@ void clr_blend_fast(COLOR *srca, COLOR *srcb, COLOR *dst,
 	\param nclrs	Number of colors.
 	\param alpha	Blend weight (range: 0-32).
 	\note	u32 version, 2 clrs/loop. Loop: 18i/32c, Barrel shifter FTW.
-	\note	Properly rounds the blending. If you don't want that, remove 
+	\note	Properly rounds the blending. If you don't want that, remove
 			the references to lr.
 */
 BEGIN_FUNC_ARM(clr_blend_fast, CSEC_IWRAM)
@@ -48,7 +48,7 @@ BEGIN_FUNC_ARM(clr_blend_fast, CSEC_IWRAM)
 #if(CLR_ROUND==1)
 		add		r4, r4, lr, lsl #4		@ round
 #endif
-		and		r10, r7, r4, lsr #5		@ blend(-g-|b-r)			
+		and		r10, r7, r4, lsr #5		@ blend(-g-|b-r)
 		@ --- b-r|-g- (rotated by 16 for great awesome)
 		and		r4, r6, r8, ror #11		@ x/32: -g-|b-r (ror16)
 		and		r5, r7, r9, ror #16		@ y: -g-|b-r (ror16)
@@ -63,7 +63,7 @@ BEGIN_FUNC_ARM(clr_blend_fast, CSEC_IWRAM)
 		@ --- write blended, loop
 		str		r10, [r2], #4			@ *dst++= c
 		subs	r3, r3, #1
-		bgt		.Lbld_fast_loop		
+		bgt		.Lbld_fast_loop
 	ldmfd	sp!, {r4-r10, lr}
 	bx		lr
 END_FUNC(clr_blend_fast)

@@ -14,17 +14,17 @@
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 
 //! Create a framed rectangle.
-/*! In contrast to se_frame(), se_frame_ex() uses nine tiles starting at 
+/*! In contrast to se_frame(), se_frame_ex() uses nine tiles starting at
 	\a se0 for the frame, which indicate the borders and center for the
 	window.
 	\note	Rectangle is nor normalized.
 */
-void se_window(SCR_ENTRY *sbb, int left, int top, int right, int bottom, 
+void se_window(SCR_ENTRY *sbb, int left, int top, int right, int bottom,
 	SCR_ENTRY se0)
 {
 	int ix, iy;

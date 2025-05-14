@@ -6,7 +6,7 @@
 //! \date 20060508 - 20080111
 //
 // === NOTES ===
-// * When doing anything,  always, ALWAYS!!! check the type. 
+// * When doing anything,  always, ALWAYS!!! check the type.
 //   Especially when you're combining things from different sources.
 //   Look around on the forum and count the number of times people
 //   have copied, say, from a u32 source to a u16 destination.
@@ -33,7 +33,7 @@
 */
 /*!	\{	*/
 
-// If you want your data in specific sections, add this 
+// If you want your data in specific sections, add this
 // to your variables or functions.
 // Example:
 //
@@ -43,7 +43,7 @@
 // //Definition
 // IWRAM_CODE void function(int x, int y, etc)
 // {
-//     // code 
+//     // code
 // }
 
 
@@ -67,28 +67,28 @@
 
 //! Force word alignment.
 /*! \note	In the old days, GCC aggregates were always word aligned.
-	  In the EABI environment (devkitPro r19 and higher), they are 
-	  aligned to their widest member. While technically a good thing, 
-	  it may cause problems for struct-copies. If you have aggregates 
-	  that can multiples of 4 in size but don't have word members, 
+	  In the EABI environment (devkitPro r19 and higher), they are
+	  aligned to their widest member. While technically a good thing,
+	  it may cause problems for struct-copies. If you have aggregates
+	  that can multiples of 4 in size but don't have word members,
 	  consider using this attribute to make struct-copies possible again.
 */
 #define ALIGN4		__attribute__((aligned(4)))
 
 //! Pack aggregate members
-/*! By default, members in aggregates are aligned to their native 
+/*! By default, members in aggregates are aligned to their native
 	  boundaries. Adding this prevents that. It will slow access though.
 */
 #define PACKED		__attribute__((packed))
 
 //! Deprecated notice.
 /*! Indicates that this function/type/variable should not be used anymore.
-	Replacements are (usually) present somewhere as well. 
+	Replacements are (usually) present somewhere as well.
 */
 #define DEPRECATED	__attribute__((deprecated))
 
 //! Inline function declarator
-/*!	`inline' inlines the function when -O > 0 when called, 
+/*!	`inline' inlines the function when -O > 0 when called,
 	  but also creates a body for the function itself
 	`static' removes the body as well
 */
@@ -116,7 +116,7 @@
 	   <li>u#/u{type} : unsigned #-bit integer.</li>
 	   <li>e{type} : enum'ed #-bit integer.</li>
 
-	</ul> 
+	</ul>
 */
 //\{
 typedef unsigned int   uint, eint;
@@ -244,9 +244,9 @@ typedef struct AFF_DST
 } ALIGN4 AFF_DST, ObjAffineDest;
 
 //! Extended scale-rotate destination struct
-/*! This contains the P-matrix and a fixed-point offset , the 
+/*! This contains the P-matrix and a fixed-point offset , the
 *	  combination can be used to rotate around an arbitrary point.
-*	  Mainly intended for BgAffineSet, but the struct cna be used 
+*	  Mainly intended for BgAffineSet, but the struct cna be used
 *	  for object transforms too.
 */
 typedef struct AFF_DST_EX
@@ -264,7 +264,7 @@ typedef struct AFF_DST_EX
 // === memory map structs  ============================================
 
 /*!	\defgroup grpTypeTert	Tertiary types
-*	These types are used for memory mapping of VRAM, affine registers 
+*	These types are used for memory mapping of VRAM, affine registers
 *	  and other areas that would benefit from logical memory mapping.
 *	\ingroup grpTypes
 */
@@ -291,7 +291,7 @@ typedef struct DMA_REC
 //! Timer struct, range: 0400:0100 - 0400:010F
 /*! \note The attribute is required, because union's counted as u32 otherwise.
 */
-typedef struct TMR_REC 
+typedef struct TMR_REC
 {
 	union { u16 start, count; } PACKED;
 	u16 cnt;
@@ -300,17 +300,17 @@ typedef struct TMR_REC
 //\}
 
 
-//! \name PAL types 
+//! \name PAL types
 //\{
 
-//! Palette bank type, for 16-color palette banks 
+//! Palette bank type, for 16-color palette banks
 typedef COLOR PALBANK[16];
 
 //\}
 
 
 /*! \name VRAM array types
-*	These types allow VRAM access as arrays or matrices in their 
+*	These types allow VRAM access as arrays or matrices in their
 *	  most natural types.
 */
 //\{
@@ -328,14 +328,14 @@ typedef TILE8		CHARBLOCK8[256];
 //\}
 
 
-/*! \name OAM structs 
-*	\note These OBJ_ATTR and OBJ_AFFINE structs are interlaced in OAM. 
+/*! \name OAM structs
+*	\note These OBJ_ATTR and OBJ_AFFINE structs are interlaced in OAM.
 *	  When using affine objs, struct/DMA/mem copies will give bad results.
 */
 //\{
 
 //! Object attributes.
-/*!	\note attribute 3 is padding for the interlace with OBJ_AFFINE. If 
+/*!	\note attribute 3 is padding for the interlace with OBJ_AFFINE. If
 *	not using affine objects, it can be used as a free field
 */
 typedef struct OBJ_ATTR
@@ -348,7 +348,7 @@ typedef struct OBJ_ATTR
 
 
 //! Object affine parameters.
-/*!	\note most fields are padding for the interlace with OBJ_ATTR. 
+/*!	\note most fields are padding for the interlace with OBJ_ATTR.
 */
 typedef struct OBJ_AFFINE
 {
@@ -365,7 +365,7 @@ typedef struct OBJ_AFFINE
 
 
 // --------------------------------------------------------------------
-// DEFINES 
+// DEFINES
 // --------------------------------------------------------------------
 
 

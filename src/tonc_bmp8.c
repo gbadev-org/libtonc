@@ -14,7 +14,7 @@
 #include "tonc_video.h"
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 
@@ -32,7 +32,7 @@ void bmp8_plot(int x, int y, u32 clr, void *dstBase, uint dstP)
 	u16 *dstD= (u16*)(dstBase+y*dstP+(x&~1));
 
 	if(x&1)
-	   *dstD= (*dstD& 0xFF) | (clr<<8); 
+	   *dstD= (*dstD& 0xFF) | (clr<<8);
 	else
 	   *dstD= (*dstD&~0xFF) | (clr&0xFF);
 }
@@ -54,7 +54,7 @@ void bmp8_hline(int x1, int y, int x2, u32 clr, void *dstBase, uint dstP)
 	clr &= 0xFF;
 	if(x2<x1)
 	{	int tmp= x1; x1= x2; x2= tmp;	}
-		
+
 	uint width= x2-x1+1;
 	u16 *dstL= (u16*)(dstBase+y*dstP + (x1&~1));
 
@@ -92,7 +92,7 @@ void bmp8_vline(int x, int y1, int y2, u32 clr, void *dstBase, uint dstP)
 	// --- Normalize ---
 	if(y2<y1)
 	{	int tmp= y1; y1= y2; y2= tmp;	}
-		
+
 	uint height= y2-y1+1;
 	u16 *dstL= (u16*)(dstBase+y1*dstP + (x&~1));
 	dstP /= 2;
@@ -123,7 +123,7 @@ void bmp8_vline(int x, int y1, int y2, u32 clr, void *dstBase, uint dstP)
 	\param dstP		Canvas pitch in bytes.
 	\note	Does normalization, but not bounds checks.
 */
-void bmp8_line(int x1, int y1, int x2, int y2, u32 clr, 
+void bmp8_line(int x1, int y1, int x2, int y2, u32 clr,
 	void *dstBase, uint dstP)
 {
 
@@ -133,7 +133,7 @@ void bmp8_line(int x1, int y1, int x2, int y2, u32 clr,
 		// Adjust for inclusive ends
 		if(x2 == x1)
 		{	bmp8_plot(x1, y1, clr, dstBase, dstP);	return;	}
-		
+
 		bmp8_hline(x1, y1, x2, clr, dstBase, dstP);
 		return;
 	}
@@ -142,7 +142,7 @@ void bmp8_line(int x1, int y1, int x2, int y2, u32 clr,
 		// Adjust for inclusive ends
 		if(y2 == y1)
 		{	bmp8_plot(x1, y1, clr, dstBase, dstP);	return;	}
-		
+
 		bmp8_vline(x1, y1, y2, clr, dstBase, dstP);
 		return;
 	}
@@ -171,7 +171,7 @@ void bmp8_line(int x1, int y1, int x2, int y2, u32 clr,
 
 
 	// --- Drawing ---
-	// NOTE: because xstep is alternating, you can do marvels 
+	// NOTE: because xstep is alternating, you can do marvels
 	//	with mask-flips
 	// NOTE: (mask>>31) is equivalent to (x&1) ? 0 : 1
 
@@ -190,7 +190,7 @@ void bmp8_line(int x1, int y1, int x2, int y2, u32 clr,
 			dd += 2*dy;
 			addr += xstep;
 			mask = ~mask;
-		}				
+		}
 	}
 	else				// # Diagonal, slope > 1
 	{
@@ -204,7 +204,7 @@ void bmp8_line(int x1, int y1, int x2, int y2, u32 clr,
 			if(dd >= 0)
 			{
 				dd -= 2*dy;
-				addr += xstep;	
+				addr += xstep;
 				mask = ~mask;
 			}
 
@@ -250,7 +250,7 @@ void bmp8_rect(int left, int top, int right, int bottom, u32 clr,
 		dstL= dstD;
 		for(iy=0; iy<height; iy++)
 		{	*dstL= (*dstL & 0xFF) | clr<<8;	dstL += dstP;	}
-		
+
 		width -= 1;
 		dstD += 1;
 	}
@@ -261,7 +261,7 @@ void bmp8_rect(int left, int top, int right, int bottom, u32 clr,
 		dstL= dstD + width/2;
 		for(iy=0; iy<height; iy++)
 		{	*dstL= (*dstL &~0xFF) | clr;	dstL += dstP;	}
-		
+
 		width -= 1;
 	}
 

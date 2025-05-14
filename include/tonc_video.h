@@ -27,8 +27,8 @@
 	\ingroup grpVideo
 
 	Basic functions for dealing with bitmapped graphics.
-	\deprecated	The bmp8/bmp16 functions have been superceded by the 
-		surface functions (sbmp8/sbmp16) for the most part. The 
+	\deprecated	The bmp8/bmp16 functions have been superceded by the
+		surface functions (sbmp8/sbmp16) for the most part. The
 		former group has been kept mostly for reference purposes.
 */
 
@@ -141,9 +141,9 @@ u16 *vid_flip(void);
 
 
 void clr_rotate(COLOR *clrs, uint nclrs, int ror);
-void clr_blend(const COLOR *srca, const COLOR *srcb, COLOR *dst, 
+void clr_blend(const COLOR *srca, const COLOR *srcb, COLOR *dst,
 		uint nclrs, u32 alpha);
-void clr_fade(const COLOR *src, COLOR clr, COLOR *dst, 
+void clr_fade(const COLOR *src, COLOR clr, COLOR *dst,
 		uint nclrs, u32 alpha);
 
 void clr_grayscale(COLOR *dst, const COLOR *src, uint nclrs);
@@ -165,7 +165,7 @@ void pal_gradient_ex(COLOR *pal, int first, int last, COLOR clr_first, COLOR clr
 *	\param alpha	Blend weight (range: 0-32).
 *	\note Handles 2 colors per loop. Very fast.
 */
-IWRAM_CODE void clr_blend_fast(COLOR *srca, COLOR *srcb, COLOR *dst, 
+IWRAM_CODE void clr_blend_fast(COLOR *srca, COLOR *srcb, COLOR *dst,
 	uint nclrs, u32 alpha);
 
 //!	Fades color arrays \a srca to \a clr into \a dst.
@@ -176,7 +176,7 @@ IWRAM_CODE void clr_blend_fast(COLOR *srca, COLOR *srcb, COLOR *dst,
 *	\param alpha	Blend weight (range: 0-32).
 *	\note Handles 2 colors per loop. Very fast.
 */
-IWRAM_CODE void clr_fade_fast(COLOR *src, COLOR clr, COLOR *dst, 
+IWRAM_CODE void clr_fade_fast(COLOR *src, COLOR clr, COLOR *dst,
 	uint nclrs, u32 alpha);
 
 
@@ -198,7 +198,7 @@ void bmp8_plot(int x, int y, u32 clr, void *dstBase, uint dstP);
 
 void bmp8_hline(int x1, int y, int x2, u32 clr, void *dstBase, uint dstP);
 void bmp8_vline(int x, int y1, int y2, u32 clr, void *dstBase, uint dstP);
-void bmp8_line(int x1, int y1, int x2, int y2, u32 clr, 
+void bmp8_line(int x1, int y1, int x2, int y2, u32 clr,
 	void *dstBase, uint dstP);
 
 void bmp8_rect(int left, int top, int right, int bottom, u32 clr,
@@ -246,7 +246,7 @@ void bmp16_frame(int left, int top, int right, int bottom, u32 clr,
 // mode 0  r r r r   000F 0000
 // mode 1  - a r r   0070 0040
 // mode 2  a a - -   0C00 0C00  |
-//                 0x0C7F0C40  
+//                 0x0C7F0C40
 #define  __BG_TYPES ((0x0C7F<<16)|(0x0C40))
 
 // Get affinity and availability of background n (output is 0 or 1)
@@ -267,7 +267,7 @@ void se_window(SCR_ENTRY *sbb, int left, int top, int right, int bottom, SCR_ENT
 // --- Prototypes -----------------------------------------------------
 
 // --- affine ---
-INLINE void bg_aff_set(BG_AFFINE *bgaff, 
+INLINE void bg_aff_set(BG_AFFINE *bgaff,
 	FIXED pa, FIXED pb, FIXED pc, FIXED pd);
 INLINE void bg_aff_identity(BG_AFFINE *bgaff);
 INLINE void bg_aff_scale(BG_AFFINE *bgaff, FIXED sx, FIXED sy);
@@ -393,12 +393,12 @@ INLINE void se_plot(SCR_ENTRY *sbb, int x, int y, SCR_ENTRY se)
 {	sbb[y*32+x]= se;										}
 
 //! Fill a rectangle on \a sbb with \a se.
-INLINE void se_rect(SCR_ENTRY *sbb, int left, int top, int right, int bottom, 
+INLINE void se_rect(SCR_ENTRY *sbb, int left, int top, int right, int bottom,
 	SCR_ENTRY se)
 {	bmp16_rect(left, top, right, bottom, se, sbb, 32*2);				}
 
 //! Create a border on \a sbb with \a se.
-INLINE void se_frame(SCR_ENTRY *sbb, int left, int top, int right, int bottom, 
+INLINE void se_frame(SCR_ENTRY *sbb, int left, int top, int right, int bottom,
 	SCR_ENTRY se)
 {	bmp16_frame(left, top, right, bottom, se, sbb, 32*2);				}
 
@@ -419,7 +419,7 @@ INLINE void bg_aff_copy(BG_AFFINE *dst, const BG_AFFINE *src)
 {	*dst = *src;	}
 
 //! Set the elements of an \a bg affine matrix.
-INLINE void bg_aff_set(BG_AFFINE *bgaff, 
+INLINE void bg_aff_set(BG_AFFINE *bgaff,
 	FIXED pa, FIXED pb, FIXED pc, FIXED pd)
 {
 	bgaff->pa= pa;	bgaff->pb= pb;
@@ -460,7 +460,7 @@ INLINE void bg_aff_sheary(BG_AFFINE *bgaff, FIXED hy)
 
 
 //! Fill the mode 3 background with color \a clr.
-INLINE void m3_fill(COLOR clr)	
+INLINE void m3_fill(COLOR clr)
 {	memset32(vid_mem, dup16(clr), M3_SIZE/4);						}
 
 
@@ -512,7 +512,7 @@ INLINE void m3_frame(int left, int top, int right, int bottom, COLOR clr)
 
 
 //! Fill the current mode 4 backbuffer with \a clrid
-INLINE void m4_fill(u8 clrid) 
+INLINE void m4_fill(u8 clrid)
 {	memset32(vid_page, quad8(clrid), M4_SIZE/4);						}
 
 
@@ -570,7 +570,7 @@ INLINE void m4_frame(int left, int top, int right, int bottom, u8 clrid)
 
 
 //! Fill the current mode 5 backbuffer with \a clr
-INLINE void m5_fill(COLOR clr) 
+INLINE void m5_fill(COLOR clr)
 {	memset32(vid_page, dup16(clr), M5_SIZE/4);							}
 
 

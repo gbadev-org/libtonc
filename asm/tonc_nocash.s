@@ -42,7 +42,7 @@ BEGIN_FUNC_THUMB(nocash_puts, CSEC_TEXT)
 		@ Print message
 .Lmsg_print:
 		bl		.Lmsg_far_call
-		
+
 		@ If not at end, continue with next part of string
 		add		r0, r2
 		add		r12, r2

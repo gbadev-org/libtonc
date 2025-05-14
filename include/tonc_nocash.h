@@ -15,8 +15,8 @@
 
 /*!	\defgroup grpNocash no$gba debugging
 	\ingroup grpCore
-	The non-freeware versions of no$gba have window to which you 
-	can output messages for debugging purposes. These functions allow 
+	The non-freeware versions of no$gba have window to which you
+	can output messages for debugging purposes. These functions allow
 	you to work with that.
 */
 
@@ -25,13 +25,13 @@
 /*!	\{	*/
 
 // --------------------------------------------------------------------
-// GLOBALS 
+// GLOBALS
 // --------------------------------------------------------------------
 
 extern EWRAM_DATA char nocash_buffer[80];
 
 // --------------------------------------------------------------------
-// PROTOTYPES 
+// PROTOTYPES
 // --------------------------------------------------------------------
 
 //!	Output a string to no$gba debugger.

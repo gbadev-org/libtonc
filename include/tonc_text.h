@@ -10,15 +10,15 @@
 /* === NOTES ===
 	* 20070822: These routines have been superceded by TTE.
 	* This file is NOT meant to contain the Mother Of All Text Systems.
-	  Rather, this contains the bases to build text-systems on, 
-	  whether they are map-based, bitmap-based or sprite-based. 
-	* Text systems tend to be a little fickle, I'll probably add things 
+	  Rather, this contains the bases to build text-systems on,
+	  whether they are map-based, bitmap-based or sprite-based.
+	* Text systems tend to be a little fickle, I'll probably add things
 	  over time.
-	* On use. There are 'standard' initialisers, the txt_init_xxx 
-	  things, that set up default conditions: using toncfont, 8x8 chars, 
-	  palettes, that sort of thing. For the rest, just use xxx_puts to 
-	  write a string and xxx_clrs to clear it again. If you want other 
-	  fonts or an other charmap you can change it, within limits. 
+	* On use. There are 'standard' initialisers, the txt_init_xxx
+	  things, that set up default conditions: using toncfont, 8x8 chars,
+	  palettes, that sort of thing. For the rest, just use xxx_puts to
+	  write a string and xxx_clrs to clear it again. If you want other
+	  fonts or an other charmap you can change it, within limits.
 */
 
 
@@ -30,7 +30,7 @@
 #include "tonc_core.h"
 
 /*!	\addtogroup grpText
-	\deprecated While potentially still useful, TTE is considerably 
+	\deprecated While potentially still useful, TTE is considerably
 	more advanced. Use that instead.
 */
 
@@ -56,7 +56,7 @@
 
 
 // --------------------------------------------------------------------
-// CLASSES 
+// CLASSES
 // --------------------------------------------------------------------
 
 
@@ -74,7 +74,7 @@ typedef struct tagTXT_BASE
 
 
 // --------------------------------------------------------------------
-// GLOBALS 
+// GLOBALS
 // --------------------------------------------------------------------
 
 
@@ -87,7 +87,7 @@ extern u16 *vid_page;
 
 
 // --------------------------------------------------------------------
-// PROTOTYPES 
+// PROTOTYPES
 // --------------------------------------------------------------------
 
 
@@ -183,9 +183,9 @@ void bm8_puts(u16 *dst, const char *str, u8 clrid);
 //! \addtogroup grpTextObj
 /*!	\{	*/
 
-INLINE void obj_putc2(int x, int y, int c, u16 attr2, 
+INLINE void obj_putc2(int x, int y, int c, u16 attr2,
 	OBJ_ATTR *obj0);
-INLINE void obj_puts2(int x, int y, const char *str, u16 attr2, 
+INLINE void obj_puts2(int x, int y, const char *str, u16 attr2,
 	OBJ_ATTR *obj0);
 
 void txt_init_obj(OBJ_ATTR *obj0, u16 attr2, u32 clrs, u32 base);
@@ -197,7 +197,7 @@ void obj_clrs(int x, int y, const char *str);
 
 
 // --------------------------------------------------------------------
-// MACROS 
+// MACROS
 // --------------------------------------------------------------------
 
 // === INLINES=========================================================
@@ -231,7 +231,7 @@ INLINE void m4_puts(int x, int y, const char *str, u8 clrid)
 INLINE void m4_clrs(int x, int y, const char *str, u8 clrid)
 {
 	gptxt->dx >>= 1;
-	bm16_clrs(&vid_page[(y*240+x)>>1], str, dup8(clrid), 120);	
+	bm16_clrs(&vid_page[(y*240+x)>>1], str, dup8(clrid), 120);
 	gptxt->dx <<= 1;
 }
 
@@ -252,7 +252,7 @@ INLINE void m5_clrs(int x, int y, const char *str, COLOR clr)
 // --- Object text ---
 
 //! Write character \a c to (x, y) in color \a clr using objects \a obj0 and on
-INLINE void obj_putc2(int x, int y, int c, u16 attr2, 
+INLINE void obj_putc2(int x, int y, int c, u16 attr2,
 	OBJ_ATTR *obj0)
 {
 	gptxt->dst0= (u16*)obj0;
@@ -260,7 +260,7 @@ INLINE void obj_putc2(int x, int y, int c, u16 attr2,
 }
 
 //! Write string \a str to (x, y) in color \a clr using objects \a obj0 and on
-INLINE void obj_puts2(int x, int y, const char *str, u16 attr2, 
+INLINE void obj_puts2(int x, int y, const char *str, u16 attr2,
 	OBJ_ATTR *obj0)
 {
 	gptxt->dst0= (u16*)obj0;

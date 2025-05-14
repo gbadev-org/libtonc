@@ -16,7 +16,7 @@
 
 
 // --------------------------------------------------------------------
-// FUNCTIONS 
+// FUNCTIONS
 // --------------------------------------------------------------------
 
 void obj_aff_copy(OBJ_AFFINE *dst, const OBJ_AFFINE *src, uint count)
@@ -35,7 +35,7 @@ void obj_aff_copy(OBJ_AFFINE *dst, const OBJ_AFFINE *src, uint count)
 
 
 //! Set obj matrix to counter-clockwise rotation.
-/*! 
+/*!
 	\param oaff	Object affine struct to set.
 	\param alpha	CCW angle. full-circle is 10000h.
 */
@@ -47,7 +47,7 @@ void obj_aff_rotate(OBJ_AFFINE *oaff, u16 alpha)
 }
 
 //! Set obj matrix to 2d scaling, then counter-clockwise rotation.
-/*! 
+/*!
 	\param oaff	Object affine struct to set.
 	\param sx	Horizontal scale (zoom). .8 fixed point.
 	\param sy	Vertical scale (zoom). .8 fixed point.
@@ -88,7 +88,7 @@ void obj_aff_postmul(OBJ_AFFINE *dst, const OBJ_AFFINE *src)
 }
 
 //! Set obj matrix to 2d scaling, then counter-clockwise rotation.
-/*! 
+/*!
 	\param oaff	Object affine struct to set.
 	\param as Struct with scales and angle.
 */
@@ -97,7 +97,7 @@ void obj_aff_rotscale2(OBJ_AFFINE *oaff, const AFF_SRC *as)
 	int ss= lu_sin(as->alpha), cc= lu_cos(as->alpha);
 
 	oaff->pa= cc*as->sx>>12;	oaff->pb=-ss*as->sx>>12;
-	oaff->pc= ss*as->sy>>12;	oaff->pd= cc*as->sy>>12;	
+	oaff->pc= ss*as->sy>>12;	oaff->pd= cc*as->sy>>12;
 }
 
 //! Rot/scale an object around an arbitrary point.
@@ -105,7 +105,7 @@ void obj_aff_rotscale2(OBJ_AFFINE *oaff, const AFF_SRC *as)
 	around an arbitrary point using the \a asx data.
 	\param obj	Object to set.
 	\param oaff	Object affine data to set.
-	\param asx	Affine source data: screen and texture origins, 
+	\param asx	Affine source data: screen and texture origins,
 	  scales and angle.
 */
 void obj_rotscale_ex(OBJ_ATTR *obj, OBJ_AFFINE *oaff, const AFF_SRC_EX *asx)
