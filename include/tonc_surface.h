@@ -105,8 +105,9 @@
 */
 
 
-/*! \addtogroup grpSurface	*/
-/*!	\{	*/
+/*! \addtogroup grpSurface
+	\{
+*/
 
 // --------------------------------------------------------------------
 // CLASSES
@@ -231,8 +232,9 @@ INLINE void *_srf_get_ptr(const TSurface *srf, uint x, uint y, uint stride);
 /*!	\}	*/
 
 
-/*! \addtogroup grpSbmp16	*/
-/*!	\{	*/
+/*! \addtogroup grpSbmp16
+	\{
+*/
 
 u32  sbmp16_get_pixel(const TSurface *src, int x, int y);
 
@@ -256,8 +258,9 @@ INLINE u32 _sbmp16_get_pixel(const TSurface *src, int x, int y);
 /*!	\}	*/
 
 
-/*! \addtogroup grpSbmp8	*/
-/*!	\{	*/
+/*! \addtogroup grpSbmp8
+	\{
+*/
 
 u32  sbmp8_get_pixel(const TSurface *src, int x, int y);
 
@@ -281,8 +284,9 @@ INLINE u32 _sbmp8_get_pixel(const TSurface *src, int x, int y);
 /*!	\}	*/
 
 
-/*! \addtogroup grpSchr4c	*/
-/*!	\{	*/
+/*! \addtogroup grpSchr4c
+	\{
+*/
 
 u32 schr4c_get_pixel(const TSurface *src, int x, int y);
 
@@ -311,8 +315,9 @@ INLINE u32 _schr4c_get_pixel(const TSurface *src, int x, int y);
 /*!	\}	*/
 
 
-/*! \addtogroup grpSchr4r	*/
-/*!	\{	*/
+/*! \addtogroup grpSchr4r
+	\{
+*/
 
 u32 schr4r_get_pixel(const TSurface *src, int x, int y);
 

@@ -15,29 +15,29 @@
 
 // --- Doxygen modules ---
 
-/*! \defgroup grpMathBase	Base math
+/*! \defgroup grpMathBase Base math
 *	\brief Basic math macros and functions like MIN, MAX
 *	\ingroup grpMath
 */
 
-/*! \defgroup grpMathFixed	Fixed point math
+/*! \defgroup grpMathFixed Fixed point math
 *	\ingroup grpMath
 */
 
-/*! \defgroup grpMathLut	Look-up tables
+/*! \defgroup grpMathLut Look-up tables
 *	\brief Tonc's internal look-up tables and related routines.
 *	\ingroup grpMath
 */
 
-/*! \defgroup grpMathPoint	Point functions
+/*! \defgroup grpMathPoint Point functions
 *	\ingroup grpMath
 */
 
-/*! \defgroup grpMathVector	Vector functions
+/*! \defgroup grpMathVector Vector functions
 *	\ingroup grpMath
 */
 
-/*! \defgroup grpMathRect	Rect functions
+/*! \defgroup grpMathRect Rect functions
 *	\ingroup grpMath
 */
 
@@ -147,8 +147,9 @@ INLINE int wrap(int x, int min, int max);
 // --------------------------------------------------------------------
 
 
-/*! \addtogroup grpMathFixed	*/
-/*! \{	*/
+/*! \addtogroup grpMathFixed
+	\{
+*/
 
 #define FIX_SHIFT       8
 #define FIX_SCALE       ( 1<<FIX_SHIFT		)
@@ -205,8 +206,9 @@ INLINE FIXED fxdiv64(FIXED fa, FIXED fb);
 // === LUT ============================================================
 
 
-/*!	\addtogroup grpMathLut	*/
-/*! \{	*/
+/*! \addtogroup grpMathLut
+	\{
+*/
 
 #define SIN_LUT_SIZE 514	// 512 for main lut, 2 extra for lerp
 #define DIV_LUT_SIZE 257	// 256 for main lut, 1 extra for lerp
@@ -254,8 +256,9 @@ int pt_in_rect(const POINT *pt, const struct RECT *rc);
 
 // === RECT ===========================================================
 
-/*!	\addtogroup grpMathRect		*/
-/*!	\{	*/
+/*! \addtogroup grpMathRect
+	\{
+*/
 
 //! Rectangle struct
 typedef struct RECT
@@ -281,8 +284,9 @@ RECT *rc_normalize(RECT *rc);
 
 // === VECTOR =========================================================
 
-/*!	\addtogroup grpMathVector	*/
-/*!	\{	*/
+/*!	\addtogroup grpMathVector
+	\{
+*/
 
 //! Vector struct
 typedef struct VECTOR   { FIXED x, y, z; } VECTOR;

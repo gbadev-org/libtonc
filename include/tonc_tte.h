@@ -150,8 +150,9 @@
 // CONSTANTS
 // --------------------------------------------------------------------
 
-/*! \addtogroup grpTTE	*/
-/*!	\{	*/
+/*! \addtogroup grpTTE
+	\{
+*/
 
 #define TTE_TAB_WIDTH	24
 
@@ -378,8 +379,9 @@ extern const unsigned char verdana9_b4Widths[224];
 
 // === Operations =====================================================
 
-/*! \addtogroup grpTTEOps		*/
-/*!	\{	*/
+/*! \addtogroup grpTTEOps
+	\{
+*/
 
 void tte_set_context(TTC *tc);
 INLINE TTC	*tte_get_context();
@@ -416,8 +418,9 @@ void tte_init_base(const TFont *font, fnDrawg drawProc, fnErase eraseProc);
 
 // === Attributes functions ===========================================
 
-/*! \addtogroup grpTTEAttr		*/
-/*!	\{	*/
+/*! \addtogroup grpTTEAttr
+	\{
+*/
 
 // --- getters ---
 
@@ -479,8 +482,9 @@ ssize_t tte_con_nocash(struct _reent *r, void *fd, const char *text, size_t len)
 
 // === Render families ================================================
 
-/*! \addtogroup grpTTEMap	*/
-/*!	\{	*/
+/*! \addtogroup grpTTEMap
+	\{
+*/
 
 //! \name Regular tilemaps
 //\{
@@ -552,8 +556,9 @@ IWRAM_CODE void chr4r_drawg_b1cts_fast(uint gid);
 /*!	\}	*/
 
 
-/*! \addtogroup grpTTEBmp	*/
-/*!	\{	*/
+/*! \addtogroup grpTTEBmp
+	\{
+*/
 
 void tte_init_bmp(int vmode, const TFont *font, fnDrawg proc);
 
@@ -583,8 +588,9 @@ void bmp16_drawg_b1cos(uint gid);
 /*!	\}	*/
 
 
-/*! \addtogroup grpTTEObj		*/
-/*	\{	*/
+/*! \addtogroup grpTTEObj
+	\{
+*/
 
 void tte_init_obj(OBJ_ATTR *dst, u32 attr0, u32 attr1, u32 attr2,
 	u32 clrs, u32 bupofs, const TFont *font, fnDrawg proc);

@@ -230,8 +230,9 @@ INLINE u32 hword2word(u16 h0, u16 h1);
 // --------------------------------------------------------------------
 
 
-/*!	\addtogroup grpDma	*/
-/*!	\{	*/
+/*! \addtogroup grpDma
+	\{
+*/
 
 //! General purpose DMA transfer macro
 /*!	\param _dst	Destination address.
@@ -464,8 +465,9 @@ INLINE u32 hword2word(u16 h0, u16 h1)
 
 // --- DMA ------------------------------------------------------------
 
-/*!	\addtogroup grpDma	*/
-/*!	\{	*/
+/*! \addtogroup grpDma
+	\{
+*/
 
 //! Generic DMA copy routine.
 /*!	\param dst	Destination address.
@@ -542,8 +544,9 @@ INLINE int qran_range(int min, int max)
 
 // --- Timer ----------------------------------------------------------
 
-/*!	\addtogroup grpTimer	*/
-/*!	\{	*/
+/*! \addtogroup grpTimer
+	\{
+*/
 
 //! Start a profiling run
 /*!	\note Routine uses timers 3 and 3; if you're already using these
