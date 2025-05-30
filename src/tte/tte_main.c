@@ -61,7 +61,7 @@ TTC	*gp_tte_context= &__tte_main_context;
 
 INLINE char *eatwhite(const char *str)
 {
-	while(isspace(*str))
+	while(isspace((unsigned char)*str))
 		str++;
 
 	return (char*)str;

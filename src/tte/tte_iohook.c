@@ -164,10 +164,11 @@ ssize_t tte_con_nocash(struct _reent *r, void *fd, const char *text, size_t len)
 	if(text==NULL || len<=0)
 		return -1;
 
-	int ii, count;
-	for(ii=0; ii<len; ii += 80)
+	size_t ii, count;
+	const size_t max_chars = NOCASH_BUF_SIZE-1;
+	for(ii=0; ii<len; ii += max_chars)
 	{
-		count= ii+80>len ? len-ii : 80;
+		count= (len-ii>max_chars) ? max_chars : (len-ii);
 		strncpy(nocash_buffer, &text[ii], count);
 		nocash_buffer[count]= '\0';
 		nocash_message();		
