@@ -478,7 +478,7 @@ INLINE POINT *pt_set(POINT *pd, int x, int y)
 INLINE POINT *pt_add(POINT *pd, const POINT *pa, const POINT *pb)
 {
 	pd->x= pa->x + pb->x;
-	pd->y= pa->x + pb->y;
+	pd->y= pa->y + pb->y;
 	return pd;
 }
 
@@ -486,7 +486,7 @@ INLINE POINT *pt_add(POINT *pd, const POINT *pa, const POINT *pb)
 INLINE POINT *pt_sub(POINT *pd, const POINT *pa, const POINT *pb)
 {
 	pd->x= pa->x - pb->x;
-	pd->y= pa->x - pb->y;
+	pd->y= pa->y - pb->y;
 	return pd;
 }
 
